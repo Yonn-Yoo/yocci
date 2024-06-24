@@ -29,11 +29,8 @@ export default function UserInfoPopover() {
         leaveFrom="opacity-100 translate-y-5"
         leaveTo="opacity-0 translate-y-8"
       >
-        <PopoverPanel
-          anchor="bottom"
-          className="w-fit !py-2 !px-2 rounded-sm bg-white z-10"
-        >
-          <ul className="flex flex-col">
+        <PopoverPanel anchor="bottom" className="max-md:px-5 w-full z-10">
+          <ul className="w-full  md:w-fit !py-2 !px-2 rounded-sm bg-white flex flex-col">
             {buttonLists.map(({ label, path }) => {
               const isSignInButton = label === 'SIGN IN';
 
