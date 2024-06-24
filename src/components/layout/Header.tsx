@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import useScroll from '../../hooks/use-scroll';
 import { HeaderButtonTypes } from '../../types';
 import CartPopover from '../popover/CartPopover';
+import UserInfoPopover from '../popover/UserInfoPopover';
 import HamburgerIcon from '../svg/header/HamburgerIcon';
 import MagnifierIcon from '../svg/header/MagnifierIcon';
 import MainLogo from '../svg/header/MainLogo';
-import UserIcon from '../svg/header/UserIcon';
 
 const buttonArray: HeaderButtonTypes[] = [
   {
@@ -14,7 +14,7 @@ const buttonArray: HeaderButtonTypes[] = [
   },
   {
     role: 'user',
-    icon: <UserIcon />,
+    icon: <UserInfoPopover />,
   },
   {
     role: 'search',
