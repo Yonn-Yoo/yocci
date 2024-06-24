@@ -12,9 +12,9 @@ export default function MainLogo({ isTriggered }: { isTriggered: boolean }) {
       <text
         color="#7b61ff"
         transform="translate(0 163.4)"
-        font-family="Granjon, Granjon"
-        font-size="180"
-        letter-spacing=".26em"
+        fontFamily="Granjon, Granjon"
+        fontSize="180"
+        letterSpacing=".26em"
       >
         <tspan
           className={`${

@@ -52,9 +52,9 @@ export default function Footer() {
                   className=" h-5 w-5 text-white"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>
@@ -78,9 +78,9 @@ export default function Footer() {
                   className=" h-5 w-5 text-white"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>
@@ -130,9 +130,9 @@ export default function Footer() {
           >
             <text
               transform="translate(0 163.4)"
-              font-family="Granjon, Granjon"
-              font-size="200"
-              letter-spacing=".16em"
+              fontFamily="Granjon, Granjon"
+              fontSize="200"
+              letterSpacing=".16em"
             >
               <tspan x="0" y="0">
                 YOCCI
