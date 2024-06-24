@@ -26,7 +26,7 @@ export default function TopBanner() {
         Hand Bag
       </h3>
       <div
-        style={{ animationDelay: '1.2s' }}
+        style={{ animationDelay: '1s' }}
         className={`absolute bottom-10 right-1/2 translate-x-1/2 opacity-0 ${
           isTriggered && 'animate-showUp'
         }`}
