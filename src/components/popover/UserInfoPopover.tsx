@@ -29,26 +29,31 @@ export default function UserInfoPopover() {
         leaveFrom="opacity-100 translate-y-5"
         leaveTo="opacity-0 translate-y-8"
       >
-        <PopoverPanel anchor="bottom" className="max-md:px-5 w-full z-10">
-          <ul className="w-full  md:w-fit !py-2 !px-2 rounded-sm bg-white flex flex-col">
-            {buttonLists.map(({ label, path }) => {
-              const isSignInButton = label === 'SIGN IN';
+        <PopoverPanel anchor="bottom" className="max-md:px-5 z-10 shadow-xl">
+          {({ close }) => (
+            <ul className="w-full md:w-fit !py-2 !px-2 rounded-sm bg-white flex flex-col">
+              {buttonLists.map(({ label, path }) => {
+                const isSignInButton = label === 'SIGN IN';
 
-              return (
-                <li key={label}>
-                  {isSignInButton && (
-                    <div className="w-full h-px bg-gray-300 my-2" />
-                  )}
-                  <button
-                    className="w-full px-2.5 py-2 hover:bg-gray-200 text-left duration-100 ease-out"
-                    onClick={() => navigate(path)}
-                  >
-                    {label}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+                return (
+                  <li key={label}>
+                    {isSignInButton && (
+                      <div className="w-full h-px bg-gray-300 my-2" />
+                    )}
+                    <button
+                      className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"
+                      onClick={() => {
+                        close();
+                        navigate(path);
+                      }}
+                    >
+                      {label}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </PopoverPanel>
       </Transition>
     </Popover>

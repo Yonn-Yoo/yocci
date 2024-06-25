@@ -25,7 +25,7 @@ export default function CartPopover() {
       >
         <PopoverPanel
           anchor="bottom"
-          className="!max-w-lg w-full rounded-sm bg-white z-10"
+          className="!max-w-lg w-full rounded-sm bg-white z-10 shadow-xl"
         >
           {({ close }) => (
             <>
