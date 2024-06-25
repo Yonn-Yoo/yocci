@@ -30,9 +30,8 @@ export default function SearchPopover() {
 
   const searchByKeyword = () => {
     if (!query) return;
-    console.log(query);
+
     updateStorage(query);
-    // navigate(`/search/${query}`);
     setQuery('');
   };
 
