@@ -71,9 +71,7 @@ export default function SearchPopover() {
               </label>
             </div>
             <section className="mt-3">
-              <h6 className="underline underline-offset-4">
-                Searched recently
-              </h6>
+              <h6 className="underline underline-offset-4">Recent searches</h6>
               {histories.length ? (
                 <ul className="flex flex-col space-y-4 mt-2">
                   {histories?.map((item) => (
