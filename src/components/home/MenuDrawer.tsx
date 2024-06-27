@@ -49,7 +49,7 @@ export default function MenuDrawer() {
         >
           <DialogPanel
             transition
-            className="relative w-full min-h-full max-w-lg rounded-sm bg-white p-14 backdrop-blur duration-500 transition-transform ease-in-out data-[closed]:translate-x-full"
+            className="relative w-full min-h-full md:max-w-lg rounded-sm bg-white p-14 backdrop-blur duration-500 transition-transform ease-in-out data-[closed]:translate-x-full"
           >
             <Button
               onClick={close}
