@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { ButtonHTMLAttributes } from 'react';
 
 interface ButtonTypeProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: string;
-  buttonType?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+  children: string | JSX.Element;
+  buttonType?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'close';
 }
 
 export default function Button({
@@ -16,6 +16,7 @@ export default function Button({
       className={clsx('relative p-4 text-xs group', {
         'text-white': buttonType === 'primary' || buttonType === 'tertiary',
         'text-black': buttonType === 'secondary',
+        'p-0': buttonType === 'close',
         'bg-gradient-to-r from-primary to-primaryTo hover:from-hoverPrimary hover:to-hoverPrimaryTo text-white max-md:!w-full max-md:max-w-full !w-[180px] !h-[80px] max-2xl:!w-[160px] max-2xl:!h-[60px]':
           props.disabled,
       })}
@@ -28,6 +29,7 @@ export default function Button({
             'bg-black border-black': buttonType === 'primary',
             'bg-white border-black': buttonType === 'secondary',
             'backdrop-blur-sm border-white': buttonType === 'tertiary',
+            'bg-black border-black rounded-full ': buttonType === 'close',
             'bg-gradient-to-r from-primary to-primaryTo hover:from-hoverPrimary hover:to-hoverPrimaryTo text-white max-md:!w-full max-md:max-w-full !w-[180px] !h-[80px] max-2xl:!w-[160px] max-2xl:!h-[60px]':
               props.disabled,
           }
