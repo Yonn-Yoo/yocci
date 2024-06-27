@@ -20,7 +20,7 @@ const buttonArray = [
 
 export default function MenuDrawer() {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   function open() {
     setIsOpen(true);
