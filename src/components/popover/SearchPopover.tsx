@@ -6,7 +6,7 @@ import MagnifierIcon from '../svg/header/MagnifierIcon';
 import XIcon from '../svg/icon/XIcon';
 
 const LABEL_CLASS =
-  'absolute text-sm text-grayText duration-200 transform -translate-y-2 scale-75 top-8 z-10 origin-[0] left-5 peer-focus:left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0.5 peer-focus:scale-90 peer-focus:-translate-y-4';
+  'absolute text-sm text-grayText duration-200 transform -translate-y-2 scale-75 top-10 z-10 origin-[0] left-5 peer-focus:left-5 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0.5 peer-focus:scale-90 peer-focus:-translate-y-6 cursor-text';
 const INPUT_CLASS =
   'h-[44px] lg:h-[50px] pl-1 block py-2.5 pt-6 px-0 w-full text-xs lg:text-sm text-black bg-white border-b border-black appearance-none focus:outline-none focus:ring-0 peer text-[#666666]';
 
