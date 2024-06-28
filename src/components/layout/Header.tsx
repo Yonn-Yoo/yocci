@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import usePath from '../../hooks/use-path';
 import useScroll from '../../hooks/use-scroll';
 import { HeaderButtonTypes } from '../../types';
@@ -37,9 +38,9 @@ export default function Header() {
       } px-4 duration-700 ease-in-out`}
     >
       <div className="relative mx-auto max-w-7xl w-full flex justify-end py-5">
-        <button className="z-50" onClick={() => alert('hi')}>
+        <Link to="/">
           <MainLogo isTriggered={isTriggered} isHome={isHome} />
-        </button>
+        </Link>
         <div className="flex items-center space-x-4 md:space-x-6">
           {buttonArray.map(({ role, icon }) => (
             <button key={role}>{icon}</button>
