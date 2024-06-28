@@ -28,7 +28,8 @@ export default function Button({
           {
             'bg-black border-black': buttonType === 'primary',
             'bg-white border-black': buttonType === 'secondary',
-            'backdrop-blur-sm border-white': buttonType === 'tertiary',
+            '!backdrop-blur-lg bg-white/5 border-white':
+              buttonType === 'tertiary',
             'bg-black border-black rounded-full ': buttonType === 'close',
             'bg-gradient-to-r from-primary to-primaryTo hover:from-hoverPrimary hover:to-hoverPrimaryTo text-white max-md:!w-full max-md:max-w-full !w-[180px] !h-[80px] max-2xl:!w-[160px] max-2xl:!h-[60px]':
               props.disabled,

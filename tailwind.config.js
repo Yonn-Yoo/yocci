@@ -10,9 +10,11 @@ module.exports = {
         showUp: {
           from: {
             opacity: '0',
+            backdropFilter: 'blur(0)',
           },
           to: {
             opacity: '1',
+            backdropFilter: 'blur(16px)',
           },
         },
       },

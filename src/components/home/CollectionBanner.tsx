@@ -40,8 +40,8 @@ export default function CollectionBanner({
             {mainPhrase}
           </h3>
           <div
-            style={{ animationDelay: '1s' }}
-            className={`opacity-0 ${isTriggered && 'animate-showUp'}`}
+            // style={{ animationDelay: '1s' }}
+            className={`opacity-1 ${isTriggered && 'animate-dropFilter'}`}
           >
             <Button buttonType="tertiary">{buttonPhrase}</Button>
           </div>
