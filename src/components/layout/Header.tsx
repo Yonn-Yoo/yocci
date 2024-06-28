@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import usePath from '../../hooks/use-path';
 import useScroll from '../../hooks/use-scroll';
 import { HeaderButtonTypes } from '../../types';
 import MenuDrawer from '../home/MenuDrawer';
@@ -27,9 +27,8 @@ const buttonArray: HeaderButtonTypes[] = [
 ];
 
 export default function Header() {
-  const { pathname } = useLocation();
   const { isTriggered } = useScroll();
-  const isHome = pathname === '/';
+  const { isHome } = usePath();
 
   return (
     <header

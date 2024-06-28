@@ -1,7 +1,9 @@
+import usePath from '../../../hooks/use-path';
 import useScroll from '../../../hooks/use-scroll';
 
 export default function ShoppinBagIcon() {
   const { isTriggered } = useScroll();
+  const { isHome } = usePath();
 
   return (
     <svg
@@ -14,7 +16,7 @@ export default function ShoppinBagIcon() {
     >
       <path
         className={`${
-          isTriggered ? 'fill-black' : 'fill-white'
+          isTriggered || !isHome ? 'fill-black' : 'fill-white'
         } duration-500 ease-in-out`}
         d="M18.0002 7H15.7502V5.75C15.7502 4.79 14.9702 4 14.0002 4H9.99023C9.03023 4 8.24023 
 						4.78 8.24023 5.75V7H5.99023C4.89023 7 3.99023 7.89 3.99023 9V18C3.99023 19.1 4.88023 20 
