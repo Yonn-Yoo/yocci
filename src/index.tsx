@@ -6,6 +6,7 @@ import Layout from './components/layout/Layout';
 import reportWebVitals from './reportWebVitals';
 import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
+import OrderDetailView from './views/OrderDetailView';
 import OrdersView from './views/OrdersView';
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/orders',
         element: <OrdersView />,
+      },
+      {
+        path: '/orders/:id',
+        element: <OrderDetailView />,
       },
       {
         path: '/products/:category',

@@ -18,7 +18,6 @@ export default function MainLogo({
       }`}
     >
       <text
-        color="#7b61ff"
         transform="translate(0 163.4)"
         fontFamily="Granjon, Granjon"
         fontSize="180"

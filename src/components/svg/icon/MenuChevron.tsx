@@ -1,4 +1,8 @@
-export default function MenuChevron() {
+type Props = {
+  isBackward?: boolean;
+};
+
+export default function MenuChevron({ isBackward }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +10,11 @@ export default function MenuChevron() {
       viewBox="0 0 24 24"
       stroke="currentColor"
       aria-hidden="true"
-      className="h-3 w-3 stroke-[3px] transition duration-300 ease-in-out opacity-0 group-hover:translate-x-2 group-hover:opacity-100"
+      className={`h-3 w-3 stroke-[3px] transition duration-300 ease-in-out ${
+        isBackward
+          ? 'rotate-180 group-hover:-translate-x-1'
+          : 'opacity-0 group-hover:translate-x-2 group-hover:opacity-100'
+      }`}
     >
       <path
         strokeLinecap="round"
