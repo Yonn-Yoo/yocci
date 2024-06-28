@@ -20,7 +20,7 @@ export default function TopBanner() {
       <h3
         style={{ animationDelay: '0.6s' }}
         className={`absolute bottom-28 right-1/2 translate-x-1/2 text-3xl text-white opacity-0 ${
-          isTriggered && 'animate-showUp'
+          isTriggered && 'animate-fadeIn'
         }`}
       >
         Hand Bag
@@ -28,7 +28,7 @@ export default function TopBanner() {
       <div
         style={{ animationDelay: '1s' }}
         className={`absolute bottom-10 right-1/2 translate-x-1/2 opacity-0 ${
-          isTriggered && 'animate-showUp'
+          isTriggered && 'animate-dropFilter'
         }`}
       >
         <Button>Explore the Collection</Button>

@@ -37,7 +37,9 @@ export default function Header() {
       } px-4 duration-700 ease-in-out`}
     >
       <div className="relative mx-auto max-w-7xl w-full flex justify-end py-5">
-        <MainLogo isTriggered={isTriggered} isHome={isHome} />
+        <button className="z-50" onClick={() => alert('hi')}>
+          <MainLogo isTriggered={isTriggered} isHome={isHome} />
+        </button>
         <div className="flex items-center space-x-4 md:space-x-6">
           {buttonArray.map(({ role, icon }) => (
             <button key={role}>{icon}</button>

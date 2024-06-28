@@ -13,7 +13,7 @@ export default function MainLogo({
         isTriggered || !isHome
           ? 'w-36 bottom-1/2 max-md:left-0 md:right-1/2 md:translate-x-1/2'
           : 'w-full -bottom-12 md:-bottom-28 max-md:left-1/2 max-md:-translate-x-1/2 md:right-1/2 md:translate-x-1/2'
-      } ${!isHome && 'duration-0'}`}
+      } ${!isHome && '!duration-0'}`}
     >
       <text
         color="#7b61ff"
