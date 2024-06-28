@@ -5,6 +5,7 @@ import '../src/index.css';
 import Layout from './components/layout/Layout';
 import reportWebVitals from './reportWebVitals';
 import HomeView from './views/HomeView';
+import LoginView from './views/LoginView';
 import OrdersView from './views/OrdersView';
 
 const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { path: '/', element: <HomeView /> },
       {
         path: '/sign-in',
+        element: <LoginView />,
       },
       {
         path: '/favorites',
