@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import OrderDetailCard from '../components/orders/OrderDetailCard';
+import OrderDetailTable from '../components/orders/OrderDetailTable';
 import MenuChevron from '../components/svg/icon/MenuChevron';
 
 export default function OrderDetailView() {
@@ -12,6 +13,8 @@ export default function OrderDetailView() {
         <button className="capitalize -translate-y-px">my order</button>
       </div>
       <OrderDetailCard />
+      <OrderDetailTable />
+      {/* <TestTable /> */}
     </div>
   );
 }
