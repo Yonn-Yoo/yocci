@@ -10,7 +10,7 @@ const categoryArray = ['hand bags', 'women', 'men'];
 const buttonArray = [
   {
     label: 'sign in',
-    path: '/sing-in',
+    path: '/sign-in',
   },
   {
     label: 'my orders',
@@ -75,7 +75,10 @@ export default function MenuDrawer() {
                 {buttonArray.map(({ label, path }) => (
                   <button
                     key={path}
-                    onClick={() => navigate(path)}
+                    onClick={() => {
+                      close();
+                      navigate(path);
+                    }}
                     className="flex flex-col -space-y-0.5 w-fit capitalize group"
                   >
                     <span>{label}</span>
