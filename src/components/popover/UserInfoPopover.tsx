@@ -4,7 +4,7 @@ import UserIcon from '../svg/header/UserIcon';
 
 const buttonLists = [
   { label: 'MY ORDERS', path: '/orders' },
-  { label: 'FAVORITE ITEMS', path: '/favorites' },
+  { label: 'SAVED ITEMS', path: '/saved-items' },
   { label: 'SIGN IN', path: '/sign-in' },
 ];
 

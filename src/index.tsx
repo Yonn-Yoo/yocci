@@ -8,6 +8,7 @@ import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
 import OrderDetailView from './views/OrderDetailView';
 import OrdersView from './views/OrdersView';
+import SavedItemsView from './views/SavedItemsView';
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
         element: <LoginView />,
       },
       {
-        path: '/favorites',
+        path: '/saved-items',
+        element: <SavedItemsView />,
       },
       {
         path: '/orders',
