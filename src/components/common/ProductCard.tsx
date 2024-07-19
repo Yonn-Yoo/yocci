@@ -1,12 +1,25 @@
 import XMarkIcon from '../svg/icon/XMarkIcon';
 import Button from './Button';
 
-export default function ProductCard() {
+type Props = {
+  isSavedItems?: boolean;
+};
+
+export default function ProductCard({ isSavedItems }: Props) {
+  const removeFromSavedItems = (productId: string) => {
+    console.log('remove', productId);
+  };
+
   return (
     <li className="relative flex h-full w-full flex-col items-center justify-between bg-white px-4 py-4 lg:pb-10">
-      <button className="group absolute right-2 top-2 lg:right-4 lg:top-4">
-        <XMarkIcon />
-      </button>
+      {isSavedItems ? (
+        <button
+          onClick={() => removeFromSavedItems('product-id-asdf')}
+          className="group absolute right-2 top-2 lg:right-4 lg:top-4"
+        >
+          <XMarkIcon />
+        </button>
+      ) : null}
       <div className="flex justify-center p-4">
         <img
           src="https://res.cloudinary.com/df1icniod/image/upload/v1691646506/bndotwt0govmh8p3iwvq.avif"
