@@ -13,7 +13,7 @@ export default function Button({
 }: ButtonTypeProps) {
   return (
     <button
-      className={clsx('relative py-4 px-7 text-xs md:text-sm group', {
+      className={clsx('relative z-[1] py-4 px-7 text-xs md:text-sm group', {
         'text-white': buttonType === 'primary' || buttonType === 'tertiary',
         'text-black': buttonType === 'secondary',
         'p-0': buttonType === 'close',

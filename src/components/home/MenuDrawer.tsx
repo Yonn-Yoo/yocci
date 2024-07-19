@@ -6,7 +6,7 @@ import HamburgerIcon from '../svg/header/HamburgerIcon';
 import MenuChevron from '../svg/icon/MenuChevron';
 import WhiteXIcon from '../svg/icon/WhiteXIcon';
 
-const categoryArray = ['hand bags', 'women', 'men'];
+const categoryArray = ['all', 'hand bags', 'women', 'men'];
 const buttonArray = [
   {
     label: 'sign in',
