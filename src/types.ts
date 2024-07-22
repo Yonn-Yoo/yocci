@@ -25,3 +25,7 @@ export type OrderDataType = {
     phoneNumber: string;
   };
 };
+
+export type MapType = {
+  [key: string]: string;
+};

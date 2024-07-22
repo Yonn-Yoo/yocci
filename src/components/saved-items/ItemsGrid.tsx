@@ -12,9 +12,9 @@ export default function ItemsGrid() {
         </span>
       </div>
       <ul className="grid w-full grid-cols-2 gap-px border-y bg-gray-200 md:grid-cols-3 lg:grid-cols-4">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard isSavedItems />
+        <ProductCard isSavedItems />
+        <ProductCard isSavedItems />
       </ul>
     </section>
   );

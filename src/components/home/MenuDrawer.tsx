@@ -65,7 +65,15 @@ export default function MenuDrawer() {
                     key={category}
                     className="flex items-center space-x-1 cursor-pointer group"
                   >
-                    <button className="uppercase text-lg">{category}</button>
+                    <button
+                      onClick={() => {
+                        close();
+                        navigate(`products/${category}`);
+                      }}
+                      className="uppercase text-lg"
+                    >
+                      {category}
+                    </button>
                     <MenuChevron />
                   </li>
                 ))}

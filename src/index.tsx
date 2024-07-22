@@ -8,6 +8,7 @@ import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
 import OrderDetailView from './views/OrderDetailView';
 import OrdersView from './views/OrdersView';
+import ProductsView from './views/ProductsView';
 import SavedItemsView from './views/SavedItemsView';
 
 const router = createBrowserRouter([
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/products/:category',
+        element: <ProductsView />,
       },
       {
         path: '/product/:productId',
