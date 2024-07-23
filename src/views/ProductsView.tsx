@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import HeroBanner from '../components/common/HeroBanner';
-import ItemsGrid from '../components/saved-items/ItemsGrid';
+import ProductsGrid from '../components/products/ProductsGrid';
 import { MapType } from '../types';
 
 const heroImageMap: MapType = {
@@ -12,15 +12,15 @@ const heroImageMap: MapType = {
 export default function ProductsView() {
   const { category } = useParams();
 
-  const heroImage = heroImageMap[category as string] || '/img/hero-default.jpg';
+  const heroImage = heroImageMap[category!] || '/img/hero-default.jpg';
 
   return (
     <div className="w-full h-full">
       <HeroBanner
-        heroPhrase={category?.replace('-', ' ') as string}
+        heroPhrase={category?.replace('-', ' ')!}
         heroImage={heroImage}
       />
-      <ItemsGrid />
+      <ProductsGrid />
     </div>
   );
 }
