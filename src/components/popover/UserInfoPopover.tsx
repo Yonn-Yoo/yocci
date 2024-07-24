@@ -13,7 +13,10 @@ export default function UserInfoPopover() {
 
   return (
     <Popover>
-      <PopoverButton className="flex items-center justify-center outline-none">
+      <PopoverButton
+        as="div"
+        className="flex items-center justify-center outline-none"
+      >
         <UserIcon />
       </PopoverButton>
       <PopoverPanel

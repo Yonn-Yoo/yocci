@@ -32,7 +32,10 @@ export default function SearchPopover() {
 
   return (
     <Popover>
-      <PopoverButton className="flex items-center justify-center outline-none">
+      <PopoverButton
+        as="div"
+        className="flex items-center justify-center outline-none"
+      >
         <MagnifierIcon />
       </PopoverButton>
       <PopoverPanel

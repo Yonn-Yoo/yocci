@@ -10,7 +10,7 @@ export default function LoginView() {
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">
       <h1 className="text-3xl font-light uppercase">my gucci account</h1>
       <div className="mt-10 w-full space-y-6">
-        <button
+        <div
           onClick={login}
           className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100"
         >
@@ -18,7 +18,7 @@ export default function LoginView() {
           <p className="font-bold uppercase tracking-wide">
             continue with google
           </p>
-        </button>
+        </div>
       </div>
       <span className="my-6">OR</span>
       <div className="space-y-8">

@@ -7,7 +7,10 @@ import XIcon from '../svg/icon/XIcon';
 export default function CartPopover() {
   return (
     <Popover>
-      <PopoverButton className="flex items-center justify-center outline-none">
+      <PopoverButton
+        as="div"
+        className="flex items-center justify-center outline-none"
+      >
         <ShoppinBagIcon />
       </PopoverButton>
 
