@@ -1,5 +1,11 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,15 +16,17 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+
 const provider = new GoogleAuthProvider();
 
-export function login() {
-  signInWithPopup(auth, provider)
+export async function login() {
+  return await signInWithPopup(auth, provider)
     .then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
+      // const credential = GoogleAuthProvider.credentialFromResult(result);
+      // const token = credential?.accessToken;
       const user = result.user;
-      console.log(user);
+
+      return user;
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -26,4 +34,12 @@ export function login() {
       const email = error.customData.email;
       const credential = GoogleAuthProvider.credentialFromError(error);
     });
+}
+
+export async function logout() {
+  return await signOut(auth).then(() => null);
+}
+
+export function onUserStateChange(callback: (user: any) => void) {
+  onAuthStateChanged(auth, (user) => callback(user));
 }
