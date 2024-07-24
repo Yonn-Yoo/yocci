@@ -16,28 +16,16 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-
 const provider = new GoogleAuthProvider();
 
 export async function login() {
-  return await signInWithPopup(auth, provider)
-    .then((result) => {
-      // const credential = GoogleAuthProvider.credentialFromResult(result);
-      // const token = credential?.accessToken;
-      const user = result.user;
-
-      return user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-    });
+  return await signInWithPopup(auth, provider).catch(({ code, message }) => {
+    return { code, message };
+  });
 }
 
 export async function logout() {
-  return await signOut(auth).then(() => null);
+  return await signOut(auth).catch(console.error);
 }
 
 export function onUserStateChange(callback: (user: any) => void) {

@@ -5,11 +5,6 @@ import { emailRegex } from '../regex';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
-  const [user, setUser] = useState<any>(null);
-
-  const handleLogin = () => {
-    login().then(setUser).catch(console.log);
-  };
 
   return (
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">
