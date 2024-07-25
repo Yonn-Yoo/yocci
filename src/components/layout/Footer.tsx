@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function Footer() {
+  const [email, setEmail] = useState('');
+
   return (
     <footer className="mt-20 w-full bg-black px-4 py-14 md:px-8 lg:px-16">
       <div className="mx-auto w-full max-w-7xl">
@@ -21,7 +25,8 @@ export default function Footer() {
                   required
                   id="email"
                   name="email"
-                  value=""
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label
                   htmlFor="email"
