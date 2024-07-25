@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '../components/svg/icon/GoogleIcon';
+import { useUser } from '../contexts/user-context';
 import { login } from '../firebase';
 import { emailRegex } from '../regex';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user, navigate]);
 
   return (
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">

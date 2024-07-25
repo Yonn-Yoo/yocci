@@ -20,11 +20,13 @@ const provider = new GoogleAuthProvider();
 
 export async function login() {
   return await signInWithPopup(auth, provider).catch(({ code, message }) => {
-    return { code, message };
+    console.error(`${code}: ${message}`);
+    return { message };
   });
 }
 
 export async function logout() {
+  console.log('hi');
   return await signOut(auth).catch(console.error);
 }
 

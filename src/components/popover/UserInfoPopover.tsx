@@ -1,15 +1,17 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../contexts/user-context';
+import { logout } from '../../firebase';
 import UserIcon from '../svg/header/UserIcon';
 
 const buttonLists = [
   { label: 'MY ORDERS', path: '/orders' },
   { label: 'SAVED ITEMS', path: '/saved-items' },
-  { label: 'SIGN IN', path: '/sign-in' },
 ];
 
 export default function UserInfoPopover() {
   const navigate = useNavigate();
+  const { user } = useUser();
 
   return (
     <Popover>
@@ -26,26 +28,31 @@ export default function UserInfoPopover() {
       >
         {({ close }) => (
           <ul className="w-full md:w-fit !py-2 !px-2 rounded-sm bg-white flex flex-col">
-            {buttonLists.map(({ label, path }) => {
-              const isSignInButton = label === 'SIGN IN';
-
-              return (
-                <li key={label}>
-                  {isSignInButton && (
-                    <div className="w-full h-px bg-gray-300 my-2" />
-                  )}
-                  <button
-                    className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"
-                    onClick={() => {
-                      close();
-                      navigate(path);
-                    }}
-                  >
-                    {label}
-                  </button>
-                </li>
-              );
-            })}
+            {buttonLists.map(({ label, path }) => (
+              <li key={label}>
+                <button
+                  className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"
+                  onClick={() => {
+                    close();
+                    navigate(path);
+                  }}
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
+            <div className="w-full h-px bg-gray-300 my-2" />
+            <li>
+              <button
+                className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"
+                onClick={() => {
+                  close();
+                  user ? logout() : navigate('/sign-in');
+                }}
+              >
+                {user ? 'SIGN OUT' : 'SIGN IN'}
+              </button>
+            </li>
           </ul>
         )}
       </PopoverPanel>
