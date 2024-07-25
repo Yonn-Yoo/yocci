@@ -55,3 +55,10 @@ export type UserType = {
   apiKey: string;
   appName: string;
 };
+
+export type ToastType = {
+  isOpen: boolean;
+  type: 'success' | 'fail' | 'warning';
+  text: string;
+  id: string;
+};
