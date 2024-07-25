@@ -13,6 +13,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/uuidv4": "^5.0.0",
     "clsx": "^2.1.1",
     "firebase": "^10.12.4",
     "lodash.debounce": "^4.0.8",
