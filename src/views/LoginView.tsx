@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 import GoogleIcon from '../components/svg/icon/GoogleIcon';
+import { useToast } from '../contexts/toast-context';
 import { useUser } from '../contexts/user-context';
 import { login } from '../firebase';
 import { emailRegex } from '../regex';
@@ -9,17 +11,25 @@ export default function LoginView() {
   const [email, setEmail] = useState('');
   const { user } = useUser();
   const navigate = useNavigate();
+  const { createToast } = useToast();
 
   useEffect(() => {
     if (user) navigate('/');
   }, [user, navigate]);
+
+  const handleLoginSuccess = () =>
+    createToast({
+      text: 'Signed in successfully',
+      type: 'success',
+      id: uuid(),
+    });
 
   return (
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">
       <h1 className="text-3xl font-light uppercase">my gucci account</h1>
       <div className="mt-10 w-full space-y-6">
         <div
-          onClick={login}
+          onClick={() => login().then(handleLoginSuccess)}
           className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100"
         >
           <GoogleIcon />

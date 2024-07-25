@@ -1,5 +1,7 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
+import { useToast } from '../../contexts/toast-context';
 import { useUser } from '../../contexts/user-context';
 import { logout } from '../../firebase';
 import UserIcon from '../svg/header/UserIcon';
@@ -12,6 +14,14 @@ const buttonLists = [
 export default function UserInfoPopover() {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { createToast } = useToast();
+
+  const handleLogoutSuccess = () =>
+    createToast({
+      text: 'Signed out successfully',
+      type: 'success',
+      id: uuid(),
+    });
 
   return (
     <Popover>
@@ -47,7 +57,9 @@ export default function UserInfoPopover() {
                 className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"
                 onClick={() => {
                   close();
-                  user ? logout() : navigate('/sign-in');
+                  user
+                    ? logout().then(handleLogoutSuccess)
+                    : navigate('/sign-in');
                 }}
               >
                 {user ? 'SIGN OUT' : 'SIGN IN'}

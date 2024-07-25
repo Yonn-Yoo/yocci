@@ -57,7 +57,6 @@ export type UserType = {
 };
 
 export type ToastType = {
-  isOpen: boolean;
   type: 'success' | 'fail' | 'warning';
   text: string;
   id: string;
