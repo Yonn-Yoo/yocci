@@ -26,7 +26,6 @@ export async function login() {
 }
 
 export async function logout() {
-  console.log('hi');
   return await signOut(auth).catch(console.error);
 }
 
