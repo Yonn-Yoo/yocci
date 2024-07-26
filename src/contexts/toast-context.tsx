@@ -23,7 +23,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ToastContext.Provider value={{ createToast, deleteToast }}>
-      <ul className="max-md:w-full md:max-w-[300px] md:w-full max-md:px-5 fixed max-md:bottom-5 right-1/2 max-md:translate-x-1/2 md:top-20 md:right-4 z-20 flex flex-col space-y-3">
+      <ul className="max-md:w-full md:max-w-[300px] md:w-full max-md:px-5 fixed max-md:bottom-5 right-1/2 max-md:translate-x-1/2 md:top-20 md:right-4 z-10 flex flex-col space-y-3">
         {toasts.map(({ text, type, id }) => (
           <Toast key={id} text={text} type={type} id={id} />
         ))}
