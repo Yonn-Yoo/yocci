@@ -9,6 +9,7 @@ type Props = {
   mainPhrase: string;
   buttonPhrase?: string;
   category?: string;
+  buttonType?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'close';
 };
 
 export default function CollectionBanner({
@@ -17,6 +18,7 @@ export default function CollectionBanner({
   mainPhrase,
   buttonPhrase = 'Explore the Collection',
   category = 'all',
+  buttonType = 'tertiary',
 }: Props) {
   const bannerRef = useRef(null);
   const isTriggered = useAnimate(bannerRef);
@@ -49,7 +51,7 @@ export default function CollectionBanner({
           >
             <Button
               onClick={() => navigate(`/products/${category}`)}
-              buttonType="tertiary"
+              buttonType={buttonType}
             >
               {buttonPhrase}
             </Button>

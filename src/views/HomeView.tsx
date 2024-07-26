@@ -10,6 +10,7 @@ export default function HomeView() {
           imagePath="/img/gucci-main.png"
           mainPhrase="Hand Bags"
           category="hand-bags"
+          buttonType="primary"
         />
       </div>
       <GenderBanners />
