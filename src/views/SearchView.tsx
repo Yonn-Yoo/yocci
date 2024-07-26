@@ -7,7 +7,7 @@ export default function SearchView() {
 
   return (
     <div className="w-full h-full">
-      <HeroBanner heroPhrase={`"${query}"`} heroImage="/img/hero-default.jpg" />
+      <HeroBanner heroPhrase={`"${query}"`} heroImage="/img/cart-hero.webp" />
       <ProductsGrid />
     </div>
   );

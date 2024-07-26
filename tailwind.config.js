@@ -8,7 +8,7 @@ module.exports = {
       animation: {
         fadeIn: 'fadeIn 400ms cubic-bezier(0.1, 0.7, 1, 1) forwards',
         dropFilter: 'dropFilter 400ms cubic-bezier(0.1, 0.7, 1, 1) forwards',
-        toastBar: 'toastBar 5s linear forwards',
+        toastBar: 'toastBar 4s linear forwards',
       },
       keyframes: {
         fadeIn: {

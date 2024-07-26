@@ -25,7 +25,7 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
     >
       <div
         className={clsx(
-          'absolute bottom-0 left-0 w-full h-1 animate-toastBar',
+          'absolute bottom-0 left-0 w-full h-0.5 animate-toastBar',
           {
             'bg-green-500': type === 'success',
             'bg-red-500': type === 'fail',
