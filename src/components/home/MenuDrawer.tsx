@@ -1,38 +1,40 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
+import { useToast } from '../../contexts/toast-context';
+import { useUser } from '../../contexts/user-context';
+import { logout } from '../../firebase';
 import Button from '../common/Button';
 import HamburgerIcon from '../svg/header/HamburgerIcon';
 import MenuChevron from '../svg/icon/MenuChevron';
 import WhiteXIcon from '../svg/icon/WhiteXIcon';
 
-const categoryArray = ['all', 'hand bags', 'women', 'men'];
-const buttonArray = [
-  {
-    label: 'sign in',
-    path: '/sign-in',
-  },
-  {
-    label: 'my orders',
-    path: '/orders',
-  },
-];
+const categoryArray = ['all', 'hand-bags', 'women', 'men'];
 
 export default function MenuDrawer() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
-  function open() {
-    setIsOpen(true);
-  }
+  const { user } = useUser();
+  const { createToast } = useToast();
 
   function close() {
     setIsOpen(false);
   }
 
+  const handleLogout = () => {
+    logout().then(() =>
+      createToast({
+        text: 'Signed out successfully',
+        type: 'success',
+        id: uuid(),
+      })
+    );
+  };
+
   return (
     <>
-      <i onClick={open}>
+      <i onClick={() => setIsOpen(true)}>
         <HamburgerIcon />
       </i>
       <Dialog
@@ -72,7 +74,7 @@ export default function MenuDrawer() {
                       }}
                       className="uppercase text-lg"
                     >
-                      {category}
+                      {category.replace('-', ' ')}
                     </button>
                     <MenuChevron />
                   </li>
@@ -80,19 +82,26 @@ export default function MenuDrawer() {
               </ul>
               <div className="bg-black w-full h-px" />
               <ul className="flex flex-col space-y-5">
-                {buttonArray.map(({ label, path }) => (
-                  <button
-                    key={path}
-                    onClick={() => {
-                      close();
-                      navigate(path);
-                    }}
-                    className="flex flex-col -space-y-0.5 w-fit capitalize group"
-                  >
-                    <span>{label}</span>
-                    <div className="w-0 group-hover:w-full duration-500 ease-in-out h-px bg-black" />
-                  </button>
-                ))}
+                <button
+                  onClick={() => {
+                    close();
+                    user ? handleLogout() : navigate('/sign-in');
+                  }}
+                  className="flex flex-col -space-y-0.5 w-fit capitalize group"
+                >
+                  <span>{user ? 'sign out' : 'sign in'}</span>
+                  <div className="w-0 group-hover:w-full duration-500 ease-in-out h-px bg-black" />
+                </button>
+                <button
+                  onClick={() => {
+                    close();
+                    navigate('/orders');
+                  }}
+                  className="flex flex-col -space-y-0.5 w-fit capitalize group"
+                >
+                  <span>my order</span>
+                  <div className="w-0 group-hover:w-full duration-500 ease-in-out h-px bg-black" />
+                </button>
               </ul>
             </section>
           </DialogPanel>

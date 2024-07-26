@@ -30,7 +30,7 @@ export default function LoginView() {
       <div className="mt-10 w-full space-y-6">
         <div
           onClick={() => login().then(handleLoginSuccess)}
-          className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100"
+          className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100 cursor-pointer"
         >
           <GoogleIcon />
           <p className="font-bold uppercase tracking-wide">
