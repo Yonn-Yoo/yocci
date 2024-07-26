@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useToast } from '../../contexts/toast-context';
 import { ToastType } from '../../types';
 import ToastCloseIcon from '../svg/icon/ToastCloseIcon';
@@ -9,24 +9,14 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
   const [isOpen, setIsOpen] = useState(false);
   const { deleteToast } = useToast();
 
-  const removeToast = () => {
-    setIsOpen(false);
-    setTimeout(() => {
-      deleteToast(id);
-    }, 300);
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsOpen(true);
-    }, 1);
-    setTimeout(() => {
-      removeToast();
-    }, 5000);
-  }, []);
-
   return (
     <li
+      onAnimationStart={() => setIsOpen(true)}
+      onAnimationEnd={() => setIsOpen(false)}
+      onTransitionEnd={() => {
+        if (isOpen) return;
+        deleteToast(id);
+      }}
       className={`${
         isOpen
           ? 'opacity-100 max-md:translate-y-0 md:translate-x-0'
@@ -57,7 +47,7 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
       </div>
       <div className="ms-3 text-sm font-normal">{text}</div>
       <button
-        onClick={removeToast}
+        onClick={() => setIsOpen(false)}
         className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 "
       >
         <ToastCloseIcon />
