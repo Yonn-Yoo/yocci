@@ -8,11 +8,13 @@ export default function GenderBanners() {
           imagePath="/img/gucci-men.png"
           badgePhrase="남성"
           mainPhrase="2024 Free Fall"
+          category="men"
         />
         <CollectionBanner
           imagePath="/img/gucci-women.png"
           badgePhrase="여성"
           mainPhrase="Hand Bags"
+          category="women"
         />
       </ul>
     </section>
