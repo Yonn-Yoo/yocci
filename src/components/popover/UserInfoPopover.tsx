@@ -1,8 +1,8 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../api/firebase';
 import { useToast } from '../../contexts/toast-context';
 import { useUser } from '../../contexts/user-context';
-import { logout } from '../../firebase';
 import { createUuid } from '../../utils/utils';
 import UserIcon from '../svg/header/UserIcon';
 

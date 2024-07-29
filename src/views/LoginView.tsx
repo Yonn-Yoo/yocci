@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../api/firebase';
 import GoogleIcon from '../components/svg/icon/GoogleIcon';
 import { useToast } from '../contexts/toast-context';
 import { useUser } from '../contexts/user-context';
-import { login } from '../firebase';
 import { emailRegex } from '../regex';
 import { createUuid } from '../utils/utils';
 

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onUserStateChange } from '../firebase';
+import { onUserStateChange } from '../api/firebase';
 import { UserType } from '../types';
 
 export const UserContext = createContext<{

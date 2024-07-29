@@ -1,9 +1,9 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../api/firebase';
 import { useToast } from '../../contexts/toast-context';
 import { useUser } from '../../contexts/user-context';
-import { logout } from '../../firebase';
 import { createUuid } from '../../utils/utils';
 import Button from '../common/Button';
 import Underline from '../common/Underline';
