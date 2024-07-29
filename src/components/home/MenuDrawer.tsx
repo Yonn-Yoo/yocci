@@ -1,10 +1,10 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuid } from 'uuid';
 import { useToast } from '../../contexts/toast-context';
 import { useUser } from '../../contexts/user-context';
 import { logout } from '../../firebase';
+import { createUuid } from '../../utils/utils';
 import Button from '../common/Button';
 import HamburgerIcon from '../svg/header/HamburgerIcon';
 import MenuChevron from '../svg/icon/MenuChevron';
@@ -26,8 +26,7 @@ export default function MenuDrawer() {
     logout().then(() =>
       createToast({
         text: 'Signed out successfully',
-        type: 'success',
-        id: uuid(),
+        id: createUuid(),
       })
     );
   };

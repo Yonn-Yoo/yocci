@@ -1,5 +1,5 @@
-import { v4 as uuid } from 'uuid';
 import { useToast } from '../../contexts/toast-context';
+import { createUuid } from '../../utils/utils';
 import XMarkIcon from '../svg/icon/XMarkIcon';
 import Button from './Button';
 
@@ -16,9 +16,8 @@ export default function ProductCard({ isSavedItems }: Props) {
 
   const addToCart = () => {
     createToast({
-      type: 'success',
       text: 'Added to shopping bag.',
-      id: uuid(),
+      id: createUuid(),
     });
   };
 

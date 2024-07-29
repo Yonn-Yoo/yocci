@@ -57,7 +57,7 @@ export type UserType = {
 };
 
 export type ToastType = {
-  type: 'success' | 'fail' | 'warning';
+  type?: 'success' | 'fail' | 'warning';
   text: string;
   id: string;
 };

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuid } from 'uuid';
 import GoogleIcon from '../components/svg/icon/GoogleIcon';
 import { useToast } from '../contexts/toast-context';
 import { useUser } from '../contexts/user-context';
 import { login } from '../firebase';
 import { emailRegex } from '../regex';
+import { createUuid } from '../utils/utils';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
@@ -20,8 +20,7 @@ export default function LoginView() {
   const handleLoginSuccess = () =>
     createToast({
       text: 'Signed in successfully',
-      type: 'success',
-      id: uuid(),
+      id: createUuid(),
     });
 
   return (
