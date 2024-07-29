@@ -2,6 +2,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { KeyboardEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStorage from '../../hooks/use-storage';
+import Underline from '../common/Underline';
 import MagnifierIcon from '../svg/header/MagnifierIcon';
 import XIcon from '../svg/icon/XIcon';
 
@@ -75,13 +76,25 @@ export default function SearchPopover() {
                   {histories?.map((item) => (
                     <li
                       key={item}
-                      className="flex items-center justify-between w-full md:w-1/2 text-sm font-light text-gray-800"
+                      onClick={() => {
+                        close();
+                        navigate(`/search/${item}`);
+                      }}
+                      className="flex items-center justify-between w-full md:w-1/2 text-sm font-light text-gray-800 cursor-pointer group"
                     >
                       <div className="flex items-center space-x-1">
                         <MagnifierIcon isBlack />
-                        <span className="line-clamp-1">{item}</span>
+                        <div className="flex flex-col -space-y-0.5 w-fit">
+                          <span className="line-clamp-1">{item}</span>
+                          <Underline />
+                        </div>
                       </div>
-                      <button onClick={() => deleteItem(item)}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteItem(item);
+                        }}
+                      >
                         <XIcon />
                       </button>
                     </li>

@@ -6,6 +6,7 @@ import { useUser } from '../../contexts/user-context';
 import { logout } from '../../firebase';
 import { createUuid } from '../../utils/utils';
 import Button from '../common/Button';
+import Underline from '../common/Underline';
 import HamburgerIcon from '../svg/header/HamburgerIcon';
 import MenuChevron from '../svg/icon/MenuChevron';
 import WhiteXIcon from '../svg/icon/WhiteXIcon';
@@ -89,7 +90,7 @@ export default function MenuDrawer() {
                   className="flex flex-col -space-y-0.5 w-fit capitalize group"
                 >
                   <span>{user ? 'sign out' : 'sign in'}</span>
-                  <div className="w-0 group-hover:w-full duration-500 ease-in-out h-px bg-black" />
+                  <Underline />
                 </button>
                 <button
                   onClick={() => {
@@ -99,7 +100,7 @@ export default function MenuDrawer() {
                   className="flex flex-col -space-y-0.5 w-fit capitalize group"
                 >
                   <span>my order</span>
-                  <div className="w-0 group-hover:w-full duration-500 ease-in-out h-px bg-black" />
+                  <Underline />
                 </button>
               </ul>
             </section>
