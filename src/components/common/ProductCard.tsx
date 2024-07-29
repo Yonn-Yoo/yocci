@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '../../contexts/toast-context';
+import { useUser } from '../../contexts/user-context';
 import { createUuid } from '../../utils/utils';
 import XMarkIcon from '../svg/icon/XMarkIcon';
 import Button from './Button';
@@ -9,12 +11,19 @@ type Props = {
 
 export default function ProductCard({ isSavedItems }: Props) {
   const { createToast } = useToast();
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   const removeFromSavedItems = (productId: string) => {
     console.log('remove', productId);
   };
 
   const addToCart = () => {
+    if (!user) {
+      navigate('/sign-in');
+      return;
+    }
+
     createToast({
       text: 'Added to shopping bag.',
       id: createUuid(),
