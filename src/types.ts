@@ -33,6 +33,7 @@ export type MapType = {
 export type UserType = {
   uid: string;
   email: string;
+  isAdmin: boolean;
   emailVerified: boolean;
   displayName: string;
   isAnonymous: boolean;

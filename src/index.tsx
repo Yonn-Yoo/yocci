@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import '../src/index.css';
 import Layout from './components/layout/Layout';
+import ProtectedRoute from './components/routes/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
 import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
@@ -22,15 +23,27 @@ const router = createBrowserRouter([
       },
       {
         path: '/saved-items',
-        element: <SavedItemsView />,
+        element: (
+          <ProtectedRoute redirectPath="/sign-in">
+            <SavedItemsView />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/orders',
-        element: <OrdersView />,
+        element: (
+          <ProtectedRoute redirectPath="/sign-in">
+            <OrdersView />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/orders/:id',
-        element: <OrderDetailView />,
+        element: (
+          <ProtectedRoute redirectPath="/sign-in">
+            <OrderDetailView />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/products/:category',
@@ -42,6 +55,14 @@ const router = createBrowserRouter([
       {
         path: '/search/:query',
         element: <SearchView />,
+      },
+      {
+        path: '/register',
+        element: (
+          <ProtectedRoute isAdminRequired>
+            <SearchView />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

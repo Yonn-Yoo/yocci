@@ -24,12 +24,13 @@ export default function MenuDrawer() {
   }
 
   const handleLogout = () => {
-    logout().then(() =>
+    logout().then(() => {
       createToast({
         text: 'Signed out successfully',
         id: createUuid(),
-      })
-    );
+      });
+      navigate('/');
+    });
   };
 
   return (
@@ -85,21 +86,21 @@ export default function MenuDrawer() {
                 <button
                   onClick={() => {
                     close();
-                    user ? handleLogout() : navigate('/sign-in');
-                  }}
-                  className="flex flex-col -space-y-0.5 w-fit capitalize group"
-                >
-                  <span>{user ? 'sign out' : 'sign in'}</span>
-                  <Underline />
-                </button>
-                <button
-                  onClick={() => {
-                    close();
                     navigate('/orders');
                   }}
                   className="flex flex-col -space-y-0.5 w-fit capitalize group"
                 >
                   <span>my order</span>
+                  <Underline />
+                </button>
+                <button
+                  onClick={() => {
+                    close();
+                    user ? handleLogout() : navigate('/sign-in');
+                  }}
+                  className="flex flex-col -space-y-0.5 w-fit capitalize group"
+                >
+                  <span>{user ? 'sign out' : 'sign in'}</span>
                   <Underline />
                 </button>
               </ul>
