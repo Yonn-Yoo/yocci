@@ -17,18 +17,37 @@ export default function LoginView() {
     if (user) navigate('/');
   }, [user, navigate]);
 
-  const handleLoginSuccess = () =>
+  const handleLoginSuccess = () => {
     createToast({
       text: 'Signed in successfully',
       id: createUuid(),
     });
+    navigate('/');
+  };
+
+  const handleLoginFail = ({
+    code,
+    message,
+  }: {
+    code: string;
+    message: string;
+  }) => {
+    console.error(`${code}: ${message}`);
+    createToast({
+      type: 'fail',
+      text: message,
+      id: createUuid(),
+    });
+  };
 
   return (
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">
       <h1 className="text-3xl font-light uppercase">my gucci account</h1>
       <div className="mt-10 w-full space-y-6">
         <div
-          onClick={() => login().then(handleLoginSuccess)}
+          onClick={() =>
+            login().then(handleLoginSuccess).catch(handleLoginFail)
+          }
           className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100 cursor-pointer"
         >
           <GoogleIcon />

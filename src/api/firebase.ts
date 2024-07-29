@@ -21,10 +21,7 @@ const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
 
 export async function login() {
-  return await signInWithPopup(auth, provider).catch(({ code, message }) => {
-    console.error(`${code}: ${message}`);
-    return { message };
-  });
+  return await signInWithPopup(auth, provider);
 }
 
 export async function logout() {

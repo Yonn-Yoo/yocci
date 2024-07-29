@@ -15,12 +15,15 @@ export default function UserInfoPopover() {
   const navigate = useNavigate();
   const { user } = useUser();
   const { createToast } = useToast();
+  const isAdmin = user?.isAdmin;
 
-  const handleLogoutSuccess = () =>
+  const handleLogoutSuccess = () => {
     createToast({
       text: 'Signed out successfully',
       id: createUuid(),
     });
+    navigate('/');
+  };
 
   return (
     <Popover>
@@ -51,6 +54,19 @@ export default function UserInfoPopover() {
               </li>
             ))}
             <div className="w-full h-px bg-gray-300 my-2" />
+            {isAdmin && (
+              <li>
+                <button
+                  className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"
+                  onClick={() => {
+                    close();
+                    navigate('/register');
+                  }}
+                >
+                  REGISTER
+                </button>
+              </li>
+            )}
             <li>
               <button
                 className="w-full px-2.5 py-2 rounded-sm hover:bg-slate-200 text-left duration-100 ease-out"

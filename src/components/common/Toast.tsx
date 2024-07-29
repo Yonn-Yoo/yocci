@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useToast } from '../../contexts/toast-context';
 import { ToastType } from '../../types';
 import ToastCloseIcon from '../svg/icon/ToastCloseIcon';
+import ToastFailIcon from '../svg/icon/ToastFailIcon';
 import ToastSuccessIcon from '../svg/icon/ToastSuccessIcon';
 
 export default function Toast({ text, type = 'success', id }: ToastType) {
@@ -43,7 +44,8 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
           }
         )}
       >
-        <ToastSuccessIcon />
+        {type === 'success' && <ToastSuccessIcon />}
+        {(type === 'fail' || type === 'warning') && <ToastFailIcon />}
       </div>
       <div className="ms-3 text-sm font-normal">{text}</div>
       <button
