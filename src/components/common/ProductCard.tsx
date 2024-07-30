@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../contexts/auth-context';
 import { useToast } from '../../contexts/toast-context';
-import { useUser } from '../../contexts/user-context';
 import { createUuid } from '../../utils/utils';
 import XMarkIcon from '../svg/icon/XMarkIcon';
 import Button from './Button';
@@ -11,7 +11,7 @@ type Props = {
 
 export default function ProductCard({ isSavedItems }: Props) {
   const { createToast } = useToast();
-  const { user } = useUser();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
 
   const removeFromSavedItems = (productId: string) => {

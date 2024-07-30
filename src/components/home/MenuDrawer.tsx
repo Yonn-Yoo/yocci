@@ -2,8 +2,8 @@ import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../api/firebase';
+import { useAuthContext } from '../../contexts/auth-context';
 import { useToast } from '../../contexts/toast-context';
-import { useUser } from '../../contexts/user-context';
 import { createUuid } from '../../utils/utils';
 import Button from '../common/Button';
 import Underline from '../common/Underline';
@@ -16,7 +16,7 @@ const categoryArray = ['all', 'hand-bags', 'women', 'men'];
 export default function MenuDrawer() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useUser();
+  const { user } = useAuthContext();
   const { createToast } = useToast();
 
   function close() {

@@ -1,8 +1,8 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../api/firebase';
+import { useAuthContext } from '../../contexts/auth-context';
 import { useToast } from '../../contexts/toast-context';
-import { useUser } from '../../contexts/user-context';
 import { createUuid } from '../../utils/utils';
 import UserIcon from '../svg/header/UserIcon';
 
@@ -13,7 +13,7 @@ const buttonLists = [
 
 export default function UserInfoPopover() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user } = useAuthContext();
   const { createToast } = useToast();
   const isAdmin = user?.isAdmin;
 

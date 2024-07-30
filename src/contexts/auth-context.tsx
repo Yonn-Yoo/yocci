@@ -2,13 +2,17 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { onUserStateChange } from '../api/firebase';
 import { UserType } from '../types';
 
-export const UserContext = createContext<{
+export const AuthContext = createContext<{
   user: UserType | null;
 }>({
   user: null,
 });
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
+export function AuthContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [user, setUser] = useState<UserType | null>(null);
 
   useEffect(() => {
@@ -16,8 +20,8 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
 }
 
-export const useUser = () => useContext(UserContext);
+export const useAuthContext = () => useContext(AuthContext);

@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
+import { AuthContextProvider } from '../../contexts/auth-context';
 import { ToastProvider } from '../../contexts/toast-context';
-import { UserProvider } from '../../contexts/user-context';
 import usePath from '../../hooks/use-path';
 import ScrollToTop from '../common/ScrollToTop';
 import Footer from './Footer';
@@ -10,7 +10,7 @@ export default function Layout() {
   const { isHome } = usePath();
 
   return (
-    <UserProvider>
+    <AuthContextProvider>
       <ToastProvider>
         <ScrollToTop />
         <Header />
@@ -19,6 +19,6 @@ export default function Layout() {
         </main>
         <Footer />
       </ToastProvider>
-    </UserProvider>
+    </AuthContextProvider>
   );
 }

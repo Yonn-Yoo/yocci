@@ -9,11 +9,11 @@ export default function CartPopover() {
     <Popover>
       <PopoverButton
         as="div"
-        className="flex items-center justify-center outline-none"
+        className="relative flex items-center justify-center outline-none"
       >
         <ShoppinBagIcon />
+        <div className="absolute right-1/2 -bottom-[3px] translate-x-1/2 w-1 h-1 flex items-center justify-center rounded-full bg-black" />
       </PopoverButton>
-
       <PopoverPanel
         transition
         anchor="bottom"

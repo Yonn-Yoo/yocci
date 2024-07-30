@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../contexts/user-context';
+import { Navigate } from 'react-router-dom';
+import { useAuthContext } from '../../contexts/auth-context';
 
 type Props = {
   children: JSX.Element;
@@ -13,15 +12,11 @@ export default function ProtectedRoute({
   children,
   redirectPath,
 }: Props) {
-  const { user } = useUser();
-  const navigate = useNavigate();
-  const isAdmin = user?.isAdmin;
+  const { user } = useAuthContext();
 
-  useEffect(() => {
-    if (isAdminRequired && !isAdmin) {
-      navigate(redirectPath || '/');
-    } else if (!user) navigate(redirectPath || '/');
-  }, [user, navigate, redirectPath, isAdmin, isAdminRequired]);
+  if (!user || (isAdminRequired && !user.isAdmin)) {
+    return <Navigate to={redirectPath || '/'} replace />;
+  }
 
-  return <>{children}</>;
+  return children;
 }
