@@ -10,15 +10,15 @@ export default function Layout() {
   const { isHome } = usePath();
 
   return (
-    <AuthContextProvider>
-      <ToastProvider>
+    <ToastProvider>
+      <AuthContextProvider>
         <ScrollToTop />
         <Header />
         <main className={`flex-grow ${!isHome && 'pt-16'}`}>
           <Outlet />
         </main>
         <Footer />
-      </ToastProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </ToastProvider>
   );
 }

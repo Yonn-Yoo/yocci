@@ -1,53 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../api/firebase';
 import GoogleIcon from '../components/svg/icon/GoogleIcon';
 import { useAuthContext } from '../contexts/auth-context';
-import { useToast } from '../contexts/toast-context';
 import { emailRegex } from '../regex';
-import { createUuid } from '../utils/utils';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
-  const { user } = useAuthContext();
+  const { user, handleLogin } = useAuthContext();
   const navigate = useNavigate();
-  const { createToast } = useToast();
 
   useEffect(() => {
     if (user) navigate('/');
   }, [user, navigate]);
-
-  const handleLoginSuccess = () => {
-    createToast({
-      text: 'Signed in successfully',
-      id: createUuid(),
-    });
-    navigate('/');
-  };
-
-  const handleLoginFail = ({
-    code,
-    message,
-  }: {
-    code: string;
-    message: string;
-  }) => {
-    console.error(`${code}: ${message}`);
-    createToast({
-      type: 'fail',
-      text: message,
-      id: createUuid(),
-    });
-  };
 
   return (
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">
       <h1 className="text-3xl font-light uppercase">my gucci account</h1>
       <div className="mt-10 w-full space-y-6">
         <div
-          onClick={() =>
-            login().then(handleLoginSuccess).catch(handleLoginFail)
-          }
+          onClick={handleLogin}
           className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100 cursor-pointer"
         >
           <GoogleIcon />
