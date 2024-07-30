@@ -9,6 +9,7 @@ import LoginView from './views/LoginView';
 import OrderDetailView from './views/OrderDetailView';
 import OrdersView from './views/OrdersView';
 import ProductsView from './views/ProductsView';
+import RegisterView from './views/RegisterView';
 import SavedItemsView from './views/SavedItemsView';
 import SearchView from './views/SearchView';
 
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
         path: '/register',
         element: (
           <ProtectedRoute isAdminRequired>
-            <SearchView />
+            <RegisterView />
           </ProtectedRoute>
         ),
       },
