@@ -62,3 +62,10 @@ export type ToastType = {
   text: string;
   id: string;
 };
+
+export type ProductType = {
+  file: null | File;
+  itemName: string;
+  description: string;
+  options: string;
+};
