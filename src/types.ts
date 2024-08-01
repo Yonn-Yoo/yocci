@@ -68,4 +68,5 @@ export type ProductType = {
   itemName: string;
   description: string;
   options: string;
+  price: string;
 };

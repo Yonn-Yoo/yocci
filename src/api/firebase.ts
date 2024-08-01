@@ -6,7 +6,9 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { get, getDatabase, ref } from 'firebase/database';
+import { get, getDatabase, ref, set } from 'firebase/database';
+import { ProductType } from '../types';
+import { createUuid } from '../utils/utils';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -47,4 +49,14 @@ async function adminUser(user: any) {
       return user;
     })
     .catch(console.error);
+}
+
+export async function addNewProduct(product: ProductType, image: string) {
+  const id = createUuid();
+  return await set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    image,
+    options: product.options.split(','),
+  });
 }

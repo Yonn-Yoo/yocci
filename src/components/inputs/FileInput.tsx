@@ -5,16 +5,12 @@ import CloudIcon from '../svg/icon/CloudIcon';
 import WhiteXIcon from '../svg/icon/WhiteXIcon';
 
 type Props = {
-  isRequired?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onDrop: (file: File) => void;
+  // reset: () => void;
 };
 
-export default function FileInput({
-  isRequired = true,
-  onChange,
-  onDrop,
-}: Props) {
+export default function FileInput({ onChange, onDrop }: Props) {
   const [key, setKey] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -61,7 +57,10 @@ export default function FileInput({
             } duration-300 ease-out`}
           >
             <Button
-              onClick={removeFile}
+              onClick={(e) => {
+                e.preventDefault();
+                removeFile();
+              }}
               className="absolute -right-5 -top-3 w-7 h-7 z-10 hover:scale-90 duration-500 ease-in-out"
               buttonType="close"
             >
@@ -86,7 +85,7 @@ export default function FileInput({
         </section>
 
         <label
-          htmlFor="dropzone-file"
+          htmlFor="file"
           onDragEnter={() => setIsActive(true)}
           onDragLeave={() => setIsActive(false)}
           onDragOver={(e) => e.preventDefault()}
@@ -109,13 +108,11 @@ export default function FileInput({
           </div>
           <input
             key={key}
-            id="dropzone-file"
+            id="file"
             type="file"
             className="hidden"
-            name="file"
             // accept="image/*"
             accept=".png, .jpg"
-            required={isRequired}
             onChange={handleUpload}
           />
         </label>
