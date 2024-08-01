@@ -3,18 +3,27 @@ import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/common/Button';
 import HeroBanner from '../components/common/HeroBanner';
+import SelectList from '../components/common/SelectList';
 import FileInput from '../components/inputs/FileInput';
 import Input from '../components/inputs/Input';
 import { useToast } from '../contexts/toast-context';
 import { ProductType, ToastType } from '../types';
 import { createUuid } from '../utils/utils';
 
-const INITIAL_STATE = {
+const categoryOption: ProductType['category'][] = [
+  'None',
+  'Men',
+  'Women',
+  'Hand Bags',
+];
+
+const INITIAL_STATE: ProductType = {
   file: null,
   itemName: '',
   description: '',
   options: '',
   price: '',
+  category: 'None',
 };
 
 export default function RegisterView() {
@@ -23,8 +32,6 @@ export default function RegisterView() {
   const { createToast } = useToast();
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
     const { id, value, files } = e.target;
 
     if (id === 'file' && files) {
@@ -117,6 +124,16 @@ export default function RegisterView() {
             value={product.options}
             onChange={handleOnChange}
             placeholder="Distinguish options by comma(' , ')."
+          />
+          <SelectList
+            options={categoryOption}
+            value={product.category}
+            onChange={(category: ProductType['category']) =>
+              setProduct((prev) => ({
+                ...prev,
+                category,
+              }))
+            }
           />
           <Button disabled={loading}>
             {loading ? 'loading...' : 'Register'}

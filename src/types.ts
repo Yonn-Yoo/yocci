@@ -69,4 +69,5 @@ export type ProductType = {
   description: string;
   options: string;
   price: string;
+  category: 'None' | 'Men' | 'Women' | 'Hand Bags';
 };
