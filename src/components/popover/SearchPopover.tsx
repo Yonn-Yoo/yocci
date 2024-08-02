@@ -26,6 +26,7 @@ export default function SearchPopover() {
   const searchByKeyword = () => {
     if (!query) return;
 
+    navigate(`/search/${query}`);
     updateStorage(query);
     setQuery('');
   };

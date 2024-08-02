@@ -12,7 +12,7 @@ export default function GenderBanners() {
         <CollectionBanner
           imagePath="/img/gucci-women.png"
           badgePhrase="여성"
-          mainPhrase="Hand Bags"
+          mainPhrase="Women"
         />
       </ul>
     </section>
