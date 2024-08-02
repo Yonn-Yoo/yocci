@@ -71,3 +71,13 @@ export type ProductType = {
   price: string;
   category: 'Men' | 'Women' | 'Hand Bags';
 };
+
+export type ProductDataType = {
+  category: 'Men' | 'Women' | 'Hand Bags';
+  description: string;
+  id: string;
+  image: string;
+  itemName: string;
+  options: string[];
+  price: number;
+};

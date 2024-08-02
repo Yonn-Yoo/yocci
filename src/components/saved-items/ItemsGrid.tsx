@@ -1,5 +1,3 @@
-import ProductCard from '../common/ProductCard';
-
 export default function ItemsGrid() {
   return (
     <section className="mt-20 mb-32">
@@ -11,11 +9,11 @@ export default function ItemsGrid() {
           you have 0 items in saved items.
         </span>
       </div>
-      <ul className="grid w-full grid-cols-2 gap-px border-y bg-gray-200 md:grid-cols-3 lg:grid-cols-4">
+      {/* <ul className="grid w-full grid-cols-2 gap-px border-y bg-gray-200 md:grid-cols-3 lg:grid-cols-4">
         <ProductCard isSavedItems />
         <ProductCard isSavedItems />
         <ProductCard isSavedItems />
-      </ul>
+      </ul> */}
     </section>
   );
 }
