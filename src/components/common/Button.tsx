@@ -28,7 +28,7 @@ export default function Button({
             'bg-white border-black': buttonType === 'secondary',
             'backdrop-blur-lg border-white': buttonType === 'tertiary',
             'bg-black border-black rounded-full ': buttonType === 'close',
-            'bg-gray-300 border-gray-300 group-hover:scale-100 cursor-not-allowed':
+            'bg-gray-300 border-gray-300 group-hover:!scale-100 cursor-not-allowed':
               props.disabled,
           }
         )}

@@ -1,21 +1,16 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/common/Button';
 import HeroBanner from '../components/common/HeroBanner';
 import SelectList from '../components/common/SelectList';
-import FileInput from '../components/inputs/FileInput';
+import FileInput, { FileInputRefType } from '../components/inputs/FileInput';
 import Input from '../components/inputs/Input';
 import { useToast } from '../contexts/toast-context';
 import { ProductType, ToastType } from '../types';
 import { createUuid } from '../utils/utils';
 
-const categoryOption: ProductType['category'][] = [
-  'None',
-  'Men',
-  'Women',
-  'Hand Bags',
-];
+const categoryOption: ProductType['category'][] = ['Men', 'Women', 'Hand Bags'];
 
 const INITIAL_STATE: ProductType = {
   file: null,
@@ -23,13 +18,20 @@ const INITIAL_STATE: ProductType = {
   description: '',
   options: '',
   price: '',
-  category: 'None',
+  category: 'Men',
 };
 
 export default function RegisterView() {
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<ProductType>(INITIAL_STATE);
   const { createToast } = useToast();
+  const fileInputRef = useRef<FileInputRefType>(null);
+  const isRegisterDisabled =
+    loading ||
+    !product.file ||
+    !product.itemName ||
+    !product.description ||
+    !product.price;
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value, files } = e.target;
@@ -56,9 +58,9 @@ export default function RegisterView() {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    if (!product.file) return;
-
     e.preventDefault();
+
+    if (!product.file) return;
     setLoading(true);
 
     uploadImage(product.file)
@@ -67,6 +69,7 @@ export default function RegisterView() {
           .then(() => {
             openToast();
             setProduct(INITIAL_STATE);
+            fileInputRef.current?.removeFile();
           })
           .catch(({ message }) => openToast('fail', message))
           .finally(() => setLoading(false));
@@ -98,7 +101,11 @@ export default function RegisterView() {
           onSubmit={handleSubmit}
           className="max-w-screen-lg w-full mx-auto mt-5 p-4 flex flex-col space-y-3 md:space-y-5"
         >
-          <FileInput onChange={handleOnChange} onDrop={onDrop} />
+          <FileInput
+            ref={fileInputRef}
+            onChange={handleOnChange}
+            onDrop={onDrop}
+          />
           <Input
             id="itemName"
             label="product name"
@@ -135,7 +142,7 @@ export default function RegisterView() {
               }))
             }
           />
-          <Button disabled={loading}>
+          <Button disabled={isRegisterDisabled}>
             {loading ? 'loading...' : 'Register'}
           </Button>
         </form>

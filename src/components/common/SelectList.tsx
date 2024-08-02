@@ -5,7 +5,7 @@ import {
   ListboxOptions,
 } from '@headlessui/react';
 import clsx from 'clsx';
-// import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
+import ChevronDownIcon from '../svg/icon/ChevronDownIcon';
 
 type Props = {
   options: string[];
@@ -22,10 +22,7 @@ export default function SelectList({ options, value, onChange }: Props) {
       <Listbox value={value} onChange={onChange}>
         <ListboxButton className="relative block w-full rounded-sm bg-white border border-black text-black px-2 py-2.5 md:px-2.5 md:py-3 tracking-wide pr-8 pl-3 text-left text-sm focus:outline-none">
           {value}
-          {/* <ChevronDownIcon
-            className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
-            aria-hidden="true"
-          /> */}
+          <ChevronDownIcon className="group pointer-events-none absolute top-3.5 right-2.5 md:right-3 size-4 fill-white/60" />
         </ListboxButton>
         <ListboxOptions
           anchor={{ to: 'bottom start', gap: '4px' }}
