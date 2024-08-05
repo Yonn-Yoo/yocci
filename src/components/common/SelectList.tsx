@@ -11,14 +11,17 @@ type Props = {
   options: string[];
   value: string;
   onChange: (value: any) => void;
+  label?: string;
 };
 
-export default function SelectList({ options, value, onChange }: Props) {
+export default function SelectList({ options, value, onChange, label }: Props) {
   return (
     <div className="mx-auto w-full">
-      <span className="block mb-px md:mb-2 text-sm font-medium text-gray-900 capitalize">
-        category
-      </span>
+      {label && (
+        <span className="block mb-px md:mb-2 text-sm font-medium text-gray-900 capitalize">
+          {label}
+        </span>
+      )}
       <Listbox value={value} onChange={onChange}>
         <ListboxButton className="relative block w-full rounded-sm bg-white border border-black text-black px-2 py-2.5 md:px-2.5 md:py-3 tracking-wide pr-8 pl-3 text-left text-sm focus:outline-none">
           {value}

@@ -1,10 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {
+  addOrUpdateToSaved,
+  getSavedItems,
+  removeFromSaved,
+} from '../../api/firebase';
 import { useAuthContext } from '../../contexts/auth-context';
-import { useToast } from '../../contexts/toast-context';
 import { ProductDataType } from '../../types';
-import { createUuid } from '../../utils/utils';
+import HeartIcon from '../svg/icon/HeartIcon';
 import XMarkIcon from '../svg/icon/XMarkIcon';
-import Button from './Button';
 
 type Props = {
   isSavedItems?: boolean;
@@ -12,49 +16,63 @@ type Props = {
 };
 
 export default function ProductCard({ isSavedItems, product }: Props) {
-  const { createToast } = useToast();
-  const { user } = useAuthContext();
+  const [saved, setSaved] = useState(false);
+  const { uid } = useAuthContext();
   const navigate = useNavigate();
   const { itemName, image, price, id } = product;
 
-  const removeFromSavedItems = (productId: string) => {
-    console.log('remove', productId);
-  };
-
-  const addToCart = () => {
-    if (!user) {
-      navigate('/sign-in');
-      return;
-    }
-
-    createToast({
-      text: `Added ${itemName} to shopping bag.`,
-      id: createUuid(),
+  useEffect(() => {
+    if (!uid) return;
+    getSavedItems(uid).then((items) => {
+      const stringifiedItems = JSON.stringify(items);
+      stringifiedItems.includes(product.id) && setSaved(true);
     });
+  }, [uid, product]);
+
+  const handleSave = () => {
+    if (!uid) return;
+    setSaved((prev) => !prev);
+    saved ? removeFromSaved(uid, product.id) : addOrUpdateToSaved(uid, product);
   };
 
   return (
-    <li className="relative flex h-full w-full flex-col items-center justify-between bg-white px-4 py-4 lg:pb-10">
+    <li
+      onClick={() => navigate(`/product/${id}`, { state: { product } })}
+      className="relative flex h-full w-full flex-col items-center justify-between bg-white px-4 py-4 lg:pb-10 cursor-pointer"
+    >
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSave();
+        }}
+        className="absolute right-3 top-3"
+      >
+        <HeartIcon saved={saved} />
+      </button>
       {isSavedItems && (
         <button
-          onClick={() => removeFromSavedItems('product-id-asdf')}
+          onClick={() => removeFromSaved(uid!, product.id)}
           className="group absolute right-2 top-2 lg:right-4 lg:top-4"
         >
           <XMarkIcon />
         </button>
       )}
-      <div className="flex justify-center h-80 p-4">
-        <img className=" object-contain" src={image} alt={itemName} />
+      <div className="flex justify-center h-80 p-4 overflow-hidden">
+        <img
+          draggable={false}
+          className="object-contain group-hover:scale-105 duration-300 ease-out"
+          src={image}
+          alt={itemName}
+        />
       </div>
       <div className="space-y-2 mb-4">
         <h3 className="text-center text-xs font-bold uppercase md:text-sm lg:text-base">
           {itemName}
         </h3>
         <p className="text-center text-xs md:text-sm lg:text-base">
-          US$ {price.toLocaleString()}
+          US$ {(+price).toLocaleString()}
         </p>
       </div>
-      <Button onClick={addToCart}>ADD TO BAG</Button>
     </li>
   );
 }

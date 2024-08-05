@@ -81,3 +81,12 @@ export type ProductDataType = {
   options: string[];
   price: number;
 };
+
+export type CartItemType = {
+  id: string;
+  image: string;
+  itemName: string;
+  option: string;
+  price: number;
+  quantity: number;
+};

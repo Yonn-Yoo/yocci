@@ -133,6 +133,7 @@ export default function RegisterView() {
             placeholder="Distinguish options by comma(' , ')."
           />
           <SelectList
+            label="category"
             options={categoryOption}
             value={product.category}
             onChange={(category: ProductType['category']) =>

@@ -7,10 +7,12 @@ import { useToast } from './toast-context';
 
 export const AuthContext = createContext<{
   user: UserType | null;
+  uid: string | null;
   handleLogout: () => void;
   handleLogin: () => void;
 }>({
   user: null,
+  uid: '',
   handleLogout: () => {},
   handleLogin: () => {},
 });
@@ -66,7 +68,9 @@ export function AuthContextProvider({
   };
 
   return (
-    <AuthContext.Provider value={{ user, handleLogout, handleLogin }}>
+    <AuthContext.Provider
+      value={{ user, uid: user && user.uid, handleLogout, handleLogin }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -6,8 +6,8 @@ import {
   signInWithPopup,
   signOut,
 } from 'firebase/auth';
-import { get, getDatabase, ref, set } from 'firebase/database';
-import { ProductType } from '../types';
+import { get, getDatabase, ref, remove, set } from 'firebase/database';
+import { CartItemType, ProductDataType, ProductType } from '../types';
 import { createUuid } from '../utils/utils';
 
 const firebaseConfig = {
@@ -65,6 +65,46 @@ export async function getProducts() {
   return get(ref(database, 'products')).then((snapshot) => {
     if (snapshot.exists()) {
       return Object.values(snapshot.val());
+    }
+    return [];
+  });
+}
+
+export async function addOrUpdateToSaved(
+  userId: string,
+  product: ProductDataType
+) {
+  return await set(
+    ref(database, `savedItems/${userId}/${product.id}`),
+    product
+  );
+}
+
+export async function removeFromSaved(userId: string, productId: string) {
+  return remove(ref(database, `savedItems/${userId}/${productId}`));
+}
+
+export async function getSavedItems(userId: string) {
+  return get(ref(database, `savedItems/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
+  });
+}
+
+export async function addOrUpdateToCart(userId: string, product: CartItemType) {
+  return await set(ref(database, `cart/${userId}/${product.id}`), product);
+}
+
+export async function removeFromCart(userId: string, productId: string) {
+  return remove(ref(database, `cart/${userId}/${productId}`));
+}
+
+export async function getCartItems(userId: string) {
+  return get(ref(database, `cart/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val()) as CartItemType[];
     }
     return [];
   });

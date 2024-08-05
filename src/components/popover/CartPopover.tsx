@@ -1,14 +1,26 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { getCartItems } from '../../api/firebase';
+import { useAuthContext } from '../../contexts/auth-context';
 import usePath from '../../hooks/use-path';
 import useScroll from '../../hooks/use-scroll';
+import { CartItemType } from '../../types';
 import CartItemCard from '../CartItemCard';
 import Button from '../common/Button';
 import ShoppinBagIcon from '../svg/header/ShoppinBagIcon';
 import XIcon from '../svg/icon/XIcon';
 
 export default function CartPopover() {
+  const { uid } = useAuthContext();
   const { isTriggered } = useScroll();
   const { isHome } = usePath();
+  const navigate = useNavigate();
+  const { data: cartItems } = useQuery({
+    queryKey: ['cart'],
+    queryFn: () => getCartItems(uid!),
+  });
+  const hasItem = cartItems && cartItems.length > 0;
 
   return (
     <Popover>
@@ -17,11 +29,13 @@ export default function CartPopover() {
         className="relative flex items-center justify-center outline-none"
       >
         <ShoppinBagIcon />
-        <div
-          className={`absolute right-1/2 -bottom-[3px] translate-x-1/2 w-1 h-1 flex items-center justify-center rounded-full ${
-            isTriggered || !isHome ? 'bg-black' : 'bg-white'
-          } duration-500 ease-in-out`}
-        />
+        {hasItem && (
+          <div
+            className={`absolute right-1/2 -bottom-[3px] translate-x-1/2 w-1 h-1 flex items-center justify-center rounded-full ${
+              isTriggered || !isHome ? 'bg-black' : 'bg-white'
+            } duration-500 ease-in-out`}
+          />
+        )}
       </PopoverButton>
       <PopoverPanel
         transition
@@ -31,7 +45,7 @@ export default function CartPopover() {
         {({ close }) => (
           <>
             <section className="relative h-14 flex items-center justify-center">
-              <h4>Added to Shopping Bag</h4>
+              <h4>Added to Cart</h4>
               <button
                 onClick={() => close()}
                 className="absolute bottom-1/2 translate-y-1/2 right-5 w-8 h-8 flex justify-center items-center hover:scale-150 duration-300 ease-out"
@@ -40,13 +54,26 @@ export default function CartPopover() {
               </button>
             </section>
             <section className="border-y border-gray-300 h-72 overflow-y-auto">
-              <ul className="w-full h-full flex flex-col space-y-2">
-                <CartItemCard />
-                <CartItemCard />
-                <CartItemCard />
-                <CartItemCard />
-                <CartItemCard />
-              </ul>
+              {hasItem ? (
+                <ul className="w-full h-full flex flex-col space-y-2">
+                  {cartItems?.map((item: CartItemType) => (
+                    <CartItemCard key={item.id} item={item} />
+                  ))}
+                </ul>
+              ) : (
+                <div className="h-full flex flex-col space-y-5 items-center justify-center">
+                  <p>Your cart is empty.</p>
+                  <Button
+                    onClick={() => {
+                      close();
+                      navigate('/products/all');
+                    }}
+                    buttonType="secondary"
+                  >
+                    Explore items
+                  </Button>
+                </div>
+              )}
             </section>
             <section className="flex flex-col space-y-4 p-4">
               <Button>CHECKOUT</Button>

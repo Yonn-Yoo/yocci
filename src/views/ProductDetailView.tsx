@@ -1,45 +1,70 @@
+import { MouseEvent, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/common/Button';
-import SelectBox from '../components/common/Select';
-
-const options = [
-  { label: 'S', value: 'small' },
-  { label: 'M', value: 'medium' },
-  { label: 'L', value: 'large' },
-  { label: 'XL', value: 'x-large' },
-];
+import SelectList from '../components/common/SelectList';
+import { useAuthContext } from '../contexts/auth-context';
+import { useToast } from '../contexts/toast-context';
+import { CartItemType } from '../types';
+import { createUuid } from '../utils/utils';
 
 export default function ProductDetailView() {
+  const {
+    state: { product },
+  } = useLocation();
+  const { category, description, id, image, itemName, options, price } =
+    product;
+  const navigate = useNavigate();
+  const { uid } = useAuthContext();
+  const [option, setOption] = useState(options[0]);
+  const { createToast } = useToast();
+
+  const handleOnAddCart = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    if (!uid) {
+      navigate('/sign-in');
+      return;
+    }
+    const addingProduct: CartItemType = {
+      itemName,
+      image,
+      price,
+      id,
+      option,
+      quantity: 1,
+    };
+    addOrUpdateToCart(uid, addingProduct).then(() => {
+      createToast({
+        text: `Added ${itemName} to shopping bag.`,
+        id: createUuid(),
+      });
+    });
+  };
+
   return (
     <div className="mx-auto max-w-sm px-4 md:max-w-lg lg:flex lg:max-w-7xl">
       <div className="py-6 lg:w-full">
-        <img
-          src="https://res.cloudinary.com/df1icniod/image/upload/v1690970036/suqpkvjlktd4eqh6vgl9.webp"
-          alt="Cotton Jersey hooded Sweatshirt"
-        />
+        <img src={image} alt="Cotton Jersey hooded Sweatshirt" />
       </div>
-      <div className="space-y-2 lg:w-full">
-        <p className="text-center font-bold uppercase">
-          Cotton Jersey hooded Sweatshirt
-        </p>
-        <p className="text-center font-bold">AU$ 3,000</p>
-        <SelectBox optionArray={options} />
-        <div className="flex items-center justify-center space-x-2">
-          <label htmlFor="option">Option:</label>
-          <select
-            name="option"
-            id="option"
-            className="border border-gray-200 px-2 py-1 text-sm disabled:bg-gray-300"
-            required
-          >
-            <option>S</option>
-            <option>M</option>
-            <option>L</option>
-          </select>
-        </div>
+      <div className="space-y-5 md:space-y-10 mt-10 lg:w-full flex flex-col">
         <div>
-          <Button additionalClass="w-full">ADD TO CART</Button>
-          <p className="mt-6">Cool Yocci sweatshirt</p>
+          <div>
+            <p className="text-center font-bold uppercase">{itemName}</p>
+            <p className="text-center font-medium">
+              AU$ {(+price).toLocaleString()}
+            </p>
+          </div>
+          <SelectList
+            options={options}
+            value={option}
+            onChange={setOption}
+            label="option"
+          />
         </div>
+        <p className="mt-10">{description}</p>
+        <Button onClick={handleOnAddCart} additionalClass="w-full">
+          ADD TO CART
+        </Button>
       </div>
     </div>
   );
