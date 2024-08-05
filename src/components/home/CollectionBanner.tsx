@@ -1,12 +1,15 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAnimate from '../../hooks/use-animate';
 import Button from '../common/Button';
 
 type Props = {
   imagePath: string;
-  badgePhrase: string;
+  badgePhrase?: string;
   mainPhrase: string;
   buttonPhrase?: string;
+  category?: string;
+  buttonType?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'close';
 };
 
 export default function CollectionBanner({
@@ -14,9 +17,12 @@ export default function CollectionBanner({
   badgePhrase,
   mainPhrase,
   buttonPhrase = 'Explore the Collection',
+  category = 'all',
+  buttonType = 'tertiary',
 }: Props) {
   const bannerRef = useRef(null);
   const isTriggered = useAnimate(bannerRef);
+  const navigate = useNavigate();
 
   return (
     <li ref={bannerRef} className="relative w-full h-full overflow-hidden">
@@ -28,7 +34,7 @@ export default function CollectionBanner({
       />
       <article className="w-full h-full flex flex-col items-center justify-between py-10 md:py-28">
         <h1 className="py-1 px-2.5 text-xs text-white backdrop-blur-sm rounded-sm overflow-hidden">
-          {badgePhrase}
+          {badgePhrase || ''}
         </h1>
         <div className="flex flex-col space-y-5 items-center">
           <h3
@@ -43,7 +49,12 @@ export default function CollectionBanner({
             style={{ animationDelay: '1s' }}
             className={`opacity-0 ${isTriggered && 'animate-dropFilter'}`}
           >
-            <Button buttonType="tertiary">{buttonPhrase}</Button>
+            <Button
+              onClick={() => navigate(`/products/${category}`)}
+              buttonType={buttonType}
+            >
+              {buttonPhrase}
+            </Button>
           </div>
         </div>
       </article>

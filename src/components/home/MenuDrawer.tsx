@@ -1,30 +1,19 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../contexts/auth-context';
 import Button from '../common/Button';
+import Underline from '../common/Underline';
 import HamburgerIcon from '../svg/header/HamburgerIcon';
 import MenuChevron from '../svg/icon/MenuChevron';
 import WhiteXIcon from '../svg/icon/WhiteXIcon';
 
-const categoryArray = ['hand bags', 'women', 'men'];
-const buttonArray = [
-  {
-    label: 'sign in',
-    path: '/sign-in',
-  },
-  {
-    label: 'my orders',
-    path: '/orders',
-  },
-];
+const categoryArray = ['all', 'hand-bags', 'women', 'men'];
 
 export default function MenuDrawer() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
-  function open() {
-    setIsOpen(true);
-  }
+  const { user, handleLogout } = useAuthContext();
 
   function close() {
     setIsOpen(false);
@@ -32,7 +21,7 @@ export default function MenuDrawer() {
 
   return (
     <>
-      <i onClick={open}>
+      <i onClick={() => setIsOpen(true)}>
         <HamburgerIcon />
       </i>
       <Dialog
@@ -65,26 +54,41 @@ export default function MenuDrawer() {
                     key={category}
                     className="flex items-center space-x-1 cursor-pointer group"
                   >
-                    <button className="uppercase text-lg">{category}</button>
+                    <button
+                      onClick={() => {
+                        close();
+                        navigate(`products/${category}`);
+                      }}
+                      className="uppercase text-lg"
+                    >
+                      {category.replace('-', ' ')}
+                    </button>
                     <MenuChevron />
                   </li>
                 ))}
               </ul>
               <div className="bg-black w-full h-px" />
               <ul className="flex flex-col space-y-5">
-                {buttonArray.map(({ label, path }) => (
-                  <button
-                    key={path}
-                    onClick={() => {
-                      close();
-                      navigate(path);
-                    }}
-                    className="flex flex-col -space-y-0.5 w-fit capitalize group"
-                  >
-                    <span>{label}</span>
-                    <div className="w-0 group-hover:w-full duration-500 ease-in-out h-px bg-black" />
-                  </button>
-                ))}
+                <button
+                  onClick={() => {
+                    close();
+                    navigate('/orders');
+                  }}
+                  className="flex flex-col -space-y-0.5 w-fit capitalize group"
+                >
+                  <span>my order</span>
+                  <Underline />
+                </button>
+                <button
+                  onClick={() => {
+                    close();
+                    user ? handleLogout() : navigate('/sign-in');
+                  }}
+                  className="flex flex-col -space-y-0.5 w-fit capitalize group"
+                >
+                  <span>{user ? 'sign out' : 'sign in'}</span>
+                  <Underline />
+                </button>
               </ul>
             </section>
           </DialogPanel>

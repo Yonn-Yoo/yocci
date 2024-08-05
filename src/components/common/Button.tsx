@@ -15,16 +15,11 @@ export default function Button({
 }: ButtonTypeProps) {
   return (
     <button
-      className={clsx(
-        `relative py-4 px-7 text-xs md:text-sm group ${additionalClass}`,
-        {
-          'text-white': buttonType === 'primary' || buttonType === 'tertiary',
-          'text-black': buttonType === 'secondary',
-          'p-0': buttonType === 'close',
-          'bg-gradient-to-r from-primary to-primaryTo hover:from-hoverPrimary hover:to-hoverPrimaryTo text-white max-md:!w-full max-md:max-w-full !w-[180px] !h-[80px] max-2xl:!w-[160px] max-2xl:!h-[60px]':
-            props.disabled,
-        }
-      )}
+      className={clsx('relative z-[1] py-4 px-7 text-xs md:text-sm group', {
+        'text-white': buttonType === 'primary' || buttonType === 'tertiary',
+        'text-black': buttonType === 'secondary',
+        'p-0': buttonType === 'close',
+      })}
       {...props}
     >
       <div
@@ -35,7 +30,7 @@ export default function Button({
             'bg-white border-black': buttonType === 'secondary',
             'backdrop-blur-lg border-white': buttonType === 'tertiary',
             'bg-black border-black rounded-full ': buttonType === 'close',
-            'bg-gradient-to-r from-primary to-primaryTo hover:from-hoverPrimary hover:to-hoverPrimaryTo text-white max-md:!w-full max-md:max-w-full !w-[180px] !h-[80px] max-2xl:!w-[160px] max-2xl:!h-[60px]':
+            'bg-gray-300 border-gray-300 group-hover:!scale-100 cursor-not-allowed':
               props.disabled,
           }
         )}

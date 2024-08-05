@@ -11,19 +11,19 @@ import MainLogo from '../svg/header/MainLogo';
 const buttonArray: HeaderButtonTypes[] = [
   {
     role: 'orders',
-    icon: <CartPopover />,
+    component: <CartPopover />,
   },
   {
     role: 'user',
-    icon: <UserInfoPopover />,
+    component: <UserInfoPopover />,
   },
   {
     role: 'search',
-    icon: <SearchPopover />,
+    component: <SearchPopover />,
   },
   {
     role: 'menu',
-    icon: <MenuDrawer />,
+    component: <MenuDrawer />,
   },
 ];
 
@@ -42,8 +42,8 @@ export default function Header() {
           <MainLogo isTriggered={isTriggered} isHome={isHome} />
         </Link>
         <div className="flex items-center space-x-4 md:space-x-6">
-          {buttonArray.map(({ role, icon }) => (
-            <button key={role}>{icon}</button>
+          {buttonArray.map(({ role, component }) => (
+            <button key={role}>{component}</button>
           ))}
         </div>
       </div>

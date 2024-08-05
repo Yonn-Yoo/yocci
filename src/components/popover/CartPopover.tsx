@@ -1,16 +1,28 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import usePath from '../../hooks/use-path';
+import useScroll from '../../hooks/use-scroll';
 import CartItemCard from '../CartItemCard';
 import Button from '../common/Button';
 import ShoppinBagIcon from '../svg/header/ShoppinBagIcon';
 import XIcon from '../svg/icon/XIcon';
 
 export default function CartPopover() {
+  const { isTriggered } = useScroll();
+  const { isHome } = usePath();
+
   return (
     <Popover>
-      <PopoverButton className="flex items-center justify-center outline-none">
+      <PopoverButton
+        as="div"
+        className="relative flex items-center justify-center outline-none"
+      >
         <ShoppinBagIcon />
+        <div
+          className={`absolute right-1/2 -bottom-[3px] translate-x-1/2 w-1 h-1 flex items-center justify-center rounded-full ${
+            isTriggered || !isHome ? 'bg-black' : 'bg-white'
+          } duration-500 ease-in-out`}
+        />
       </PopoverButton>
-
       <PopoverPanel
         transition
         anchor="bottom"

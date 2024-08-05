@@ -1,3 +1,5 @@
+const { transform } = require('typescript');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -6,6 +8,7 @@ module.exports = {
       animation: {
         fadeIn: 'fadeIn 400ms cubic-bezier(0.1, 0.7, 1, 1) forwards',
         dropFilter: 'dropFilter 400ms cubic-bezier(0.1, 0.7, 1, 1) forwards',
+        toastBar: 'toastBar 4s linear forwards',
       },
       keyframes: {
         fadeIn: {
@@ -24,6 +27,14 @@ module.exports = {
           to: {
             opacity: '1',
             backdropFilter: 'blur(16px)',
+          },
+        },
+        toastBar: {
+          from: {
+            transform: 'translateX(0)',
+          },
+          to: {
+            transform: 'translateX(-100%)',
           },
         },
       },

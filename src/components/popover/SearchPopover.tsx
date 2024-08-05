@@ -2,6 +2,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { KeyboardEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStorage from '../../hooks/use-storage';
+import Underline from '../common/Underline';
 import MagnifierIcon from '../svg/header/MagnifierIcon';
 import XIcon from '../svg/icon/XIcon';
 
@@ -19,8 +20,13 @@ export default function SearchPopover() {
   } = useStorage('serachHistory', true);
   const [query, setQuery] = useState('');
 
-  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.key === 'Enter' && searchByKeyword();
+  const handleEnter = (
+    e: KeyboardEvent<HTMLInputElement>,
+    callback: () => void
+  ) => {
+    if (e.key !== 'Enter') return;
+    searchByKeyword();
+    callback();
   };
 
   const searchByKeyword = () => {
@@ -33,7 +39,10 @@ export default function SearchPopover() {
 
   return (
     <Popover>
-      <PopoverButton className="flex items-center justify-center outline-none">
+      <PopoverButton
+        as="div"
+        className="flex items-center justify-center outline-none"
+      >
         <MagnifierIcon />
       </PopoverButton>
       <PopoverPanel
@@ -41,50 +50,64 @@ export default function SearchPopover() {
         anchor="bottom"
         className="!w-full md:!w-[500px] max-md:px-5 z-10 p-5 bg-white shadow-xl transition duration-200 translate-y-5 ease-in-out data-[closed]:translate-y-8 data-[closed]:opacity-0"
       >
-        <div className="z-0 w-full">
-          <div className="group">
-            <input
-              spellCheck={false}
-              onKeyDown={handleEnter}
-              autoComplete="off"
-              type="text"
-              id="search-query"
-              maxLength={40}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className={INPUT_CLASS}
-              placeholder=" "
-            />
-            <label htmlFor="search-query" className={LABEL_CLASS}>
-              What are you looking for?
-            </label>
+        {({ close }) => (
+          <div className="z-0 w-full">
+            <div className="group">
+              <input
+                spellCheck={false}
+                onKeyDown={(e) => handleEnter(e, close)}
+                autoComplete="off"
+                type="text"
+                id="search-query"
+                maxLength={40}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className={INPUT_CLASS}
+                placeholder=" "
+              />
+              <label htmlFor="search-query" className={LABEL_CLASS}>
+                What are you looking for?
+              </label>
+            </div>
+            <section className="mt-3">
+              <h6 className="underline underline-offset-4">Recent searches</h6>
+              {histories.length ? (
+                <ul className="flex flex-col space-y-4 mt-2">
+                  {histories?.map((item) => (
+                    <li
+                      key={item}
+                      onClick={() => {
+                        close();
+                        navigate(`/search/${item}`);
+                      }}
+                      className="flex items-center justify-between w-full md:w-1/2 text-sm font-light text-gray-800 cursor-pointer group"
+                    >
+                      <div className="flex items-center space-x-1">
+                        <MagnifierIcon isBlack />
+                        <div className="flex flex-col -space-y-0.5 w-fit">
+                          <span className="line-clamp-1">{item}</span>
+                          <Underline />
+                        </div>
+                      </div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteItem(item);
+                        }}
+                      >
+                        <XIcon />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-4 text-center font-light text-gray-800">
+                  No search history.
+                </p>
+              )}
+            </section>
           </div>
-          <section className="mt-3">
-            <h6 className="underline underline-offset-4">Recent searches</h6>
-            {histories.length ? (
-              <ul className="flex flex-col space-y-4 mt-2">
-                {histories?.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center justify-between w-full md:w-1/2 text-sm font-light text-gray-800"
-                  >
-                    <div className="flex items-center space-x-1">
-                      <MagnifierIcon isBlack />
-                      <span className="line-clamp-1">{item}</span>
-                    </div>
-                    <button onClick={() => deleteItem(item)}>
-                      <XIcon />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-4 text-center font-light text-gray-800">
-                No search history.
-              </p>
-            )}
-          </section>
-        </div>
+        )}
       </PopoverPanel>
     </Popover>
   );

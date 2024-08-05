@@ -1,6 +1,6 @@
 export type HeaderButtonTypes = {
   role: 'orders' | 'user' | 'search' | 'menu';
-  icon: JSX.Element;
+  component: JSX.Element;
 };
 
 export type OrderDataType = {
@@ -24,4 +24,50 @@ export type OrderDataType = {
     postcode: string;
     phoneNumber: string;
   };
+};
+
+export type MapType = {
+  [key: string]: string;
+};
+
+export type UserType = {
+  uid: string;
+  email: string;
+  isAdmin: boolean;
+  emailVerified: boolean;
+  displayName: string;
+  isAnonymous: boolean;
+  photoURL: string;
+  providerData: {
+    providerId: string;
+    uid: string;
+    displayName: string;
+    email: string;
+    phoneNumber: string | null;
+    photoURL: string;
+  }[];
+  stsTokenManager: {
+    refreshToken: string;
+    accessToken: string;
+    expirationTime: number;
+  };
+  createdAt: string;
+  lastLoginAt: string;
+  apiKey: string;
+  appName: string;
+};
+
+export type ToastType = {
+  type?: 'success' | 'fail' | 'warning';
+  text: string;
+  id: string;
+};
+
+export type ProductType = {
+  file: null | File;
+  itemName: string;
+  description: string;
+  options: string;
+  price: string;
+  category: 'Men' | 'Women' | 'Hand Bags';
 };

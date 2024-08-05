@@ -1,20 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GoogleIcon from '../components/svg/icon/GoogleIcon';
+import { useAuthContext } from '../contexts/auth-context';
 import { emailRegex } from '../regex';
 
 export default function LoginView() {
   const [email, setEmail] = useState('');
+  const { user, handleLogin } = useAuthContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user, navigate]);
 
   return (
     <div className="mx-auto flex w-full max-w-xs flex-col items-center pt-12">
       <h1 className="text-3xl font-light uppercase">my gucci account</h1>
       <div className="mt-10 w-full space-y-6">
-        <button className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100">
+        <div
+          onClick={handleLogin}
+          className="flex w-full justify-center space-x-2 border-2 border-black py-2 hover:bg-gray-100 cursor-pointer"
+        >
           <GoogleIcon />
           <p className="font-bold uppercase tracking-wide">
             continue with google
           </p>
-        </button>
+        </div>
       </div>
       <span className="my-6">OR</span>
       <div className="space-y-8">
