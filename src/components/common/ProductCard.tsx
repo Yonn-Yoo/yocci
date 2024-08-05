@@ -1,18 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/auth-context';
 import { useToast } from '../../contexts/toast-context';
+import { ProductDataType } from '../../types';
 import { createUuid } from '../../utils/utils';
 import XMarkIcon from '../svg/icon/XMarkIcon';
 import Button from './Button';
 
 type Props = {
   isSavedItems?: boolean;
+  product: ProductDataType;
 };
 
-export default function ProductCard({ isSavedItems }: Props) {
+export default function ProductCard({ isSavedItems, product }: Props) {
   const { createToast } = useToast();
   const { user } = useAuthContext();
   const navigate = useNavigate();
+  const { itemName, image, price, id } = product;
 
   const removeFromSavedItems = (productId: string) => {
     console.log('remove', productId);
@@ -25,7 +28,7 @@ export default function ProductCard({ isSavedItems }: Props) {
     }
 
     createToast({
-      text: 'Added to shopping bag.',
+      text: `Added ${itemName} to shopping bag.`,
       id: createUuid(),
     });
   };
@@ -40,17 +43,16 @@ export default function ProductCard({ isSavedItems }: Props) {
           <XMarkIcon />
         </button>
       )}
-      <div className="flex justify-center p-4">
-        <img
-          src="https://res.cloudinary.com/df1icniod/image/upload/v1691646506/bndotwt0govmh8p3iwvq.avif"
-          alt="Geometric Square G Print Silk Shirt"
-        />
+      <div className="flex justify-center h-80 p-4">
+        <img className=" object-contain" src={image} alt={itemName} />
       </div>
       <div className="space-y-2 mb-4">
-        <p className="text-center text-xs font-bold uppercase md:text-sm lg:text-base">
-          Geometric Square G Print Silk Shirt
+        <h3 className="text-center text-xs font-bold uppercase md:text-sm lg:text-base">
+          {itemName}
+        </h3>
+        <p className="text-center text-xs md:text-sm lg:text-base">
+          US$ {price.toLocaleString()}
         </p>
-        <p className="text-center text-xs md:text-sm lg:text-base">AU$ 1,850</p>
       </div>
       <Button onClick={addToCart}>ADD TO BAG</Button>
     </li>
