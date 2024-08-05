@@ -4,11 +4,13 @@ import { ButtonHTMLAttributes } from 'react';
 interface ButtonTypeProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string | JSX.Element;
   buttonType?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'close';
+  additionalClass?: string;
 }
 
 export default function Button({
   children,
   buttonType = 'primary',
+  additionalClass,
   ...props
 }: ButtonTypeProps) {
   return (
