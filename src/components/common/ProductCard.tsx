@@ -8,14 +8,12 @@ import {
 import { useAuthContext } from '../../contexts/auth-context';
 import { ProductDataType } from '../../types';
 import HeartIcon from '../svg/icon/HeartIcon';
-import XMarkIcon from '../svg/icon/XMarkIcon';
 
 type Props = {
-  isSavedItems?: boolean;
   product: ProductDataType;
 };
 
-export default function ProductCard({ isSavedItems, product }: Props) {
+export default function ProductCard({ product }: Props) {
   const [saved, setSaved] = useState(false);
   const { uid } = useAuthContext();
   const navigate = useNavigate();
@@ -49,14 +47,6 @@ export default function ProductCard({ isSavedItems, product }: Props) {
       >
         <HeartIcon saved={saved} />
       </button>
-      {isSavedItems && (
-        <button
-          onClick={() => removeFromSaved(uid!, product.id)}
-          className="group absolute right-2 top-2 lg:right-4 lg:top-4"
-        >
-          <XMarkIcon />
-        </button>
-      )}
       <div className="flex justify-center h-80 p-4 overflow-hidden">
         <img
           draggable={false}

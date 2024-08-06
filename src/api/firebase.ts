@@ -87,7 +87,7 @@ export async function removeFromSaved(userId: string, productId: string) {
 export async function getSavedItems(userId: string) {
   return get(ref(database, `savedItems/${userId}`)).then((snapshot) => {
     if (snapshot.exists()) {
-      return Object.values(snapshot.val());
+      return Object.values(snapshot.val()) as ProductDataType[];
     }
     return [];
   });

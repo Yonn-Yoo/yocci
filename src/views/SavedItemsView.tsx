@@ -1,20 +1,19 @@
-import ItemsGrid from '../components/saved-items/ItemsGrid';
+import { useQuery } from '@tanstack/react-query';
+import { getSavedItems } from '../api/firebase';
+import SavedItemsGrid from '../components/saved-items/SavedItemsGrid';
 import { useAuthContext } from '../contexts/auth-context';
 
 export default function SavedItemsView() {
   const { uid } = useAuthContext();
-  // const {
-  //   isLoading,
-  //   error,
-  //   data: savedItems,
-  // } = useQuery({
-  //   queryKey: ['savedItems'],
-  //   queryFn: getSavedItems(uid!),
-  // });
+  const { isLoading, data: savedItems } = useQuery({
+    queryKey: ['savedItems'],
+    queryFn: () => getSavedItems(uid!),
+  });
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center mx-auto">
-      <ItemsGrid />
+      {isLoading && <span>loading...</span>}
+      {savedItems && <SavedItemsGrid savedItems={savedItems} />}
     </div>
   );
 }
