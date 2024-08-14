@@ -4,6 +4,7 @@ import '../src/index.css';
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/routes/ProtectedRoute';
 import reportWebVitals from './reportWebVitals';
+import CartView from './views/CartView';
 import HomeView from './views/HomeView';
 import LoginView from './views/LoginView';
 import OrderDetailView from './views/OrderDetailView';
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: '/search/:query',
         element: <SearchView />,
+      },
+      {
+        path: '/cart',
+        element: <CartView />,
       },
       {
         path: '/register',

@@ -17,6 +17,7 @@ export default function CartPopover() {
   const { isHome } = usePath();
   const navigate = useNavigate();
   const { data: cartItems } = useQuery({
+    enabled: !!uid,
     queryKey: ['cart'],
     queryFn: () => getCartItems(uid!),
   });
@@ -77,7 +78,15 @@ export default function CartPopover() {
             </section>
             <section className="flex flex-col space-y-4 p-4">
               <Button>CHECKOUT</Button>
-              <Button buttonType="secondary">VIEW SHOPPING BAG</Button>
+              <Button
+                onClick={() => {
+                  close();
+                  navigate('/cart');
+                }}
+                buttonType="secondary"
+              >
+                VIEW SHOPPING BAG
+              </Button>
             </section>
           </>
         )}

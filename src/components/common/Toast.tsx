@@ -22,7 +22,7 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
         isOpen
           ? 'opacity-100 max-md:translate-y-0 md:translate-x-0'
           : 'opacity-0 max-md:translate-y-full md:translate-x-full'
-      } relative duration-300 ease-out flex items-center md:max-w-xl w-full p-4 text-gray-500 bg-white rounded-lg shadow-xl overflow-hidden`}
+      } relative duration-300 ease-out flex items-center md:max-w-xl w-full p-4 text-gray-500 bg-white rounded-md shadow-xl overflow-hidden`}
     >
       <div
         className={clsx(
@@ -36,7 +36,7 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
       />
       <div
         className={clsx(
-          'inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg',
+          'inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-md',
           {
             'text-green-500 bg-green-100': type === 'success',
             'text-red-500 bg-red-100': type === 'fail',
@@ -50,7 +50,7 @@ export default function Toast({ text, type = 'success', id }: ToastType) {
       <div className="ms-3 text-sm font-normal">{text}</div>
       <button
         onClick={() => setIsOpen(false)}
-        className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 "
+        className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-md focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 "
       >
         <ToastCloseIcon />
       </button>

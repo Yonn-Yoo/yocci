@@ -98,7 +98,7 @@ export async function addOrUpdateToCart(userId: string, product: CartItemType) {
 }
 
 export async function removeFromCart(userId: string, productId: string) {
-  return remove(ref(database, `cart/${userId}/${productId}`));
+  return await remove(ref(database, `cart/${userId}/${productId}`));
 }
 
 export async function getCartItems(userId: string) {

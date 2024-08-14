@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { getProducts } from '../../api/firebase';
 import ProductCard from '../common/ProductCard';
 
@@ -9,10 +8,6 @@ export default function ProductsGrid() {
     error,
     data: products,
   } = useQuery({ queryKey: ['products'], queryFn: getProducts });
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
 
   return (
     <section className="mt-20 mb-32">
