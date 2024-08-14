@@ -1,14 +1,19 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getProducts } from '../api/firebase';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { addNewProduct, getProducts as fetchProducts } from '../api/firebase';
 
 export default function useProducts() {
   const queryClient = useQueryClient();
 
-  const getAllProducts = useQuery({
-    queryKey: ['products'],
-    queryFn: getProducts,
+  const productsQuery = useQuery(['products'], fetchProducts, {
     staleTime: 1000 * 60,
   });
 
-  return { getAllProducts };
+  const addProduct = useMutation(
+    ({ product, url }) => addNewProduct(product, url),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['products']),
+    }
+  );
+
+  return { productsQuery, addProduct };
 }
