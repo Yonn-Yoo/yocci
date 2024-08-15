@@ -1,27 +1,33 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { addOrUpdateToCart, getCart, removeFromCart } from '../api/firebase';
-import { useAuthContext } from '../context/AuthContext';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  addOrUpdateToCart,
+  getCartItems,
+  removeFromCart,
+} from '../api/firebase';
+import { useAuthContext } from '../contexts/auth-context';
+import { CartItemType } from '../types';
 
 export default function useCart() {
   const { uid } = useAuthContext();
   const queryClient = useQueryClient();
 
-  const cartQuery = useQuery(['carts', uid || ''], () => getCart(uid), {
+  const cartQuery = useQuery({
+    queryKey: ['carts', uid || ''],
+    queryFn: () => getCartItems(uid!),
     enabled: !!uid,
   });
 
-  const addOrUpdateItem = useMutation(
-    (product) => addOrUpdateToCart(uid, product),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['carts', uid]);
-      },
-    }
-  );
-
-  const removeItem = useMutation((id) => removeFromCart(uid, id), {
+  const addOrUpdateItem = useMutation({
+    mutationFn: (product: CartItemType) => addOrUpdateToCart(uid!, product),
     onSuccess: () => {
-      queryClient.invalidateQueries(['carts', uid]);
+      queryClient.invalidateQueries({ queryKey: ['carts', uid] });
+    },
+  });
+
+  const removeItem = useMutation({
+    mutationFn: (id: string) => removeFromCart(uid!, id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['carts', uid] });
     },
   });
 
