@@ -11,7 +11,7 @@ export default function useProducts() {
     staleTime: 1000 * 60,
   });
 
-  const addProduct = useMutation({
+  const addProduct: any = useMutation({
     mutationFn: ({ product, url }: { product: ProductType; url: string }) =>
       addNewProduct(product, url),
     onSuccess: () => {

@@ -1,10 +1,10 @@
 import { MouseEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/common/Button';
 import SelectList from '../components/common/SelectList';
 import { useAuthContext } from '../contexts/auth-context';
 import { useToast } from '../contexts/toast-context';
+import useCart from '../hooks/use-cart';
 import { CartItemType } from '../types';
 import { createUuid } from '../utils/utils';
 
@@ -18,8 +18,9 @@ export default function ProductDetailView() {
   const { uid } = useAuthContext();
   const [option, setOption] = useState(options[0]);
   const { createToast } = useToast();
+  const { addOrUpdateItem } = useCart();
 
-  const handleOnAddCart = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleOnAddCart = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (!uid) {
       navigate('/sign-in');
@@ -33,7 +34,7 @@ export default function ProductDetailView() {
       option,
       quantity: 1,
     };
-    addOrUpdateToCart(uid, addingProduct).then(() => {
+    await addOrUpdateItem(addingProduct).then(() => {
       createToast({
         text: `Added ${itemName} to shopping bag.`,
         id: createUuid(),

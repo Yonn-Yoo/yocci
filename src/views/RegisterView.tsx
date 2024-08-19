@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/common/Button';
 import HeroBanner from '../components/common/HeroBanner';
@@ -7,6 +6,7 @@ import SelectList from '../components/common/SelectList';
 import FileInput, { FileInputRefType } from '../components/inputs/FileInput';
 import Input from '../components/inputs/Input';
 import { useToast } from '../contexts/toast-context';
+import useProducts from '../hooks/use-products';
 import { ProductType, ToastType } from '../types';
 import { createUuid } from '../utils/utils';
 
@@ -57,6 +57,8 @@ export default function RegisterView() {
     }));
   };
 
+  const { addProduct } = useProducts();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -65,13 +67,13 @@ export default function RegisterView() {
 
     uploadImage(product.file)
       .then((url) => {
-        addNewProduct(product, url)
+        addProduct(product, url)
           .then(() => {
             openToast();
             setProduct(INITIAL_STATE);
             fileInputRef.current?.removeFile();
           })
-          .catch(({ message }) => openToast('fail', message))
+          .catch(({ message }: { message: any }) => openToast('fail', message))
           .finally(() => setLoading(false));
       })
       .catch(({ message }) => {

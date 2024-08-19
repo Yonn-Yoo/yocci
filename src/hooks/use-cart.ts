@@ -17,7 +17,7 @@ export default function useCart() {
     enabled: !!uid,
   });
 
-  const addOrUpdateItem = useMutation({
+  const addOrUpdateItem: any = useMutation({
     mutationFn: (product: CartItemType) => addOrUpdateToCart(uid!, product),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['carts', uid] });
